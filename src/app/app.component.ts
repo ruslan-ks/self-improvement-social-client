@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { Observable, Subscriber } from "rxjs";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'self-improvement-social-client';
+    title = $localize`self-improvement-social`;
+
 }
