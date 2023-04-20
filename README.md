@@ -7,3 +7,8 @@ This project is built with:
 - TypeScript 4.9.5
 - Bootstrap 5
 
+## Internationalization
+
+Generate i18n bundle:
+`ng extract-i18n --output-path src/locale`
+

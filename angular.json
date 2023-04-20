@@ -4,12 +4,6 @@
   "newProjectRoot": "projects",
   "projects": {
     "self-improvement-social-client": {
-      "i18n": {
-        "sourceLocale": "en-US",
-        "locales": {
-          "uk-UA": "src/locale/messages.uk.xlf"
-        }
-      },
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -19,9 +13,6 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "localize": [
-              "uk-UA"
-            ],
             "outputPath": "dist/self-improvement-social-client",
             "index": "src/index.html",
             "main": "src/main.ts",
