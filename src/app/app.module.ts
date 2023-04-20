@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { LanguageSelectComponent } from './component/language-select/language-select.component';
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { HeaderComponent } from './component/header/header.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -14,7 +15,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    LanguageSelectComponent
+    LanguageSelectComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
