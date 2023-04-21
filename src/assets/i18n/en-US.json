@@ -6,5 +6,8 @@
   "nav.users": "Users",
   "nav.logIn": "Log in",
   "nav.logOut": "Log out",
+  "login.email": "Email",
+  "login.password": "Password",
+  "login.logInButton": "Log in",
   "user": "User"
 }
