@@ -11,6 +11,7 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { HeaderComponent } from './component/header/header.component';
 import { LoginFormComponent } from './component/login-form/login-form.component';
 import { HomeComponent } from './component/home/home.component';
+import { Error404Component } from './component/error404/error404.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -19,7 +20,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginFormComponent }
+  { path: 'login', component: LoginFormComponent },
+  { path: '**', component: Error404Component }
 ]
 
 @NgModule({
@@ -28,7 +30,8 @@ const appRoutes: Routes = [
     LanguageSelectComponent,
     HeaderComponent,
     LoginFormComponent,
-    HomeComponent
+    HomeComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,
