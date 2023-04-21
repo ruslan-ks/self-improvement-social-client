@@ -3,13 +3,13 @@
     <div class="mb-3 row">
       <label for="loginEmailIn" class="col-lg-2 col-sm-3 col-form-label">{{'login.email' | translate}}</label>
       <div class="col">
-        <input type="text" class="form-control" id="loginEmailIn" [(ngModel)]="userEmail">
+        <input type="text" name="email" class="form-control" id="loginEmailIn" [(ngModel)]="userEmail">
       </div>
     </div>
     <div class="mb-3 row">
       <label for="loginPasswordIn" class="col-lg-2 col-sm-3 col-form-label">{{'login.password' | translate}}</label>
       <div class="col">
-        <input type="password" class="form-control" id="loginPasswordIn" [(ngModel)]="userPassword">
+        <input type="password" name="password" class="form-control" id="loginPasswordIn" [(ngModel)]="userPassword">
       </div>
     </div>
     <div class="row">

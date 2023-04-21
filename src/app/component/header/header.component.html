@@ -8,7 +8,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto my-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">{{'nav.home' | translate}}</a>
+            <a routerLink="/home" class="nav-link active" aria-current="page">{{'nav.home' | translate}}</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">{{'nav.activities' | translate}}</a>
@@ -16,7 +16,7 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">{{'nav.users' | translate}}</a>
           </li>
-          <li *ngIf="isAuthorized;else log_in_menu" class="nav-item dropdown">
+          <li *ngIf="isAuthorized;else login_menu" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                aria-expanded="false">
               {{'user' | translate}}
@@ -28,9 +28,9 @@
               <li><a class="dropdown-item" href="#">{{'nav.logOut' | translate}}</a></li>
             </ul>
           </li>
-          <ng-template #log_in_menu>
+          <ng-template #login_menu>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">{{'nav.logIn' | translate}}</a>
+              <a routerLink="/login" class="nav-link active" aria-current="page">{{'nav.logIn' | translate}}</a>
             </li>
           </ng-template>
         </ul>
