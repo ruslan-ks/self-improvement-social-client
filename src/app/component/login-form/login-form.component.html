@@ -1,19 +1,23 @@
-<form>
-  <div class="mb-3 row">
-    <label for="loginEmailIn" class="col-lg-2 col-sm-3 col-form-label">{{'login.email' | translate}}</label>
-    <div class="col">
-      <input type="text" class="form-control" id="loginEmailIn" [(ngModel)]="userEmail">
+<div class="col-lg-6 col-md-8 col-sm-10 col-12 mx-sm-auto p-3 border-1 shadow">
+  <form>
+    <div class="mb-3 row">
+      <label for="loginEmailIn" class="col-lg-2 col-sm-3 col-form-label">{{'login.email' | translate}}</label>
+      <div class="col">
+        <input type="text" class="form-control" id="loginEmailIn" [(ngModel)]="userEmail">
+      </div>
     </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="loginPasswordIn" class="col-lg-2 col-sm-3 col-form-label">{{'login.password' | translate}}</label>
-    <div class="col">
-      <input type="password" class="form-control" id="loginPasswordIn" [(ngModel)]="userPassword">
+    <div class="mb-3 row">
+      <label for="loginPasswordIn" class="col-lg-2 col-sm-3 col-form-label">{{'login.password' | translate}}</label>
+      <div class="col">
+        <input type="password" class="form-control" id="loginPasswordIn" [(ngModel)]="userPassword">
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3 ms-auto">
-      <button class="btn btn-success w-100" (click)="onSubmitButtonClick()">{{'login.logInButton' | translate}}</button>
+    <div class="row">
+      <div class="col-sm-3 ms-auto">
+        <button class="btn btn-success w-100" (click)="onSubmitButtonClick()">
+          {{'login.logInButton' | translate}}
+        </button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>
