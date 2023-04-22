@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from "@angular/forms";
-import { RouterModule, Routes } from "@angular/router";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
@@ -12,17 +11,11 @@ import { HeaderComponent } from './component/header/header.component';
 import { LoginFormComponent } from './component/login-form/login-form.component';
 import { HomeComponent } from './component/home/home.component';
 import { Error404Component } from './component/error404/error404.component';
+import { AppRoutingModule } from "./app-routing.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-
-const appRoutes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginFormComponent },
-  { path: '**', component: Error404Component }
-]
 
 @NgModule({
   declarations: [
@@ -38,6 +31,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     HttpClientModule,
+    AppRoutingModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en-US',
       loader: {
@@ -45,8 +39,7 @@ const appRoutes: Routes = [
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    }),
-    RouterModule.forRoot(appRoutes)
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
