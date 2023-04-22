@@ -12,6 +12,7 @@ import { LoginFormComponent } from './component/login-form/login-form.component'
 import { HomeComponent } from './component/home/home.component';
 import { Error404Component } from './component/error404/error404.component';
 import { AppRoutingModule } from "./app-routing.module";
+import { SpinnerComponent } from './component/spinner/spinner.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -24,7 +25,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HeaderComponent,
     LoginFormComponent,
     HomeComponent,
-    Error404Component
+    Error404Component,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

@@ -2,4 +2,7 @@
 <br>
 <div class="container-fluid p-0">
   <router-outlet></router-outlet>
+  <div class="container d-flex justify-content-center">
+    <app-spinner *ngIf="displayLoadingSpinner"></app-spinner>
+  </div>
 </div>
