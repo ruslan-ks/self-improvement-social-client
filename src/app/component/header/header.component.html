@@ -19,7 +19,7 @@
           <li class="nav-item">
             <a href="#" class="nav-link" routerLinkActive="active" aria-current="page">{{'nav.users' | translate}}</a>
           </li>
-          <li *ngIf="isAuthorized;else login_menu" class="nav-item dropdown">
+          <li *ngIf="isLoggedIn;else login_menu" class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" routerLinkActive="active" id="navbarDropdown" role="button"
                data-bs-toggle="dropdown" aria-expanded="false">
               {{'user' | translate}}
@@ -28,7 +28,7 @@
               <li><a class="dropdown-item" href="#">Action</a></li>
               <li><a class="dropdown-item" href="#">Another action</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">{{'nav.logOut' | translate}}</a></li>
+              <li><a routerLink="" class="dropdown-item" (click)="onLogOutClick()">{{'nav.logOut' | translate}}</a></li>
             </ul>
           </li>
           <ng-template #login_menu>
