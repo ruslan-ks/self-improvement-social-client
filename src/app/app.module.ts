@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule, HttpClient } from "@angular/common/http";
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { LanguageSelectComponent } from './component/language-select/language-select.component';
@@ -13,6 +13,7 @@ import { HomeComponent } from './component/home/home.component';
 import { Error404Component } from './component/error404/error404.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { SpinnerComponent } from './component/spinner/spinner.component';
+import { AuthInterceptor } from "./interceptor/auth-interceptor";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -32,7 +33,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    HttpClientModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en-US',
@@ -43,7 +43,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
