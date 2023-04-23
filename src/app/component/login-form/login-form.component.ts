@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { UserLoginRequest } from "../../interface/user-login-request";
+import { Component } from '@angular/core';
+import { NgForm } from "@angular/forms";
+import { AuthService } from "../../service/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login-form',
@@ -7,15 +9,10 @@ import { UserLoginRequest } from "../../interface/user-login-request";
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent {
-  @Output() submitEventEmitter: EventEmitter<UserLoginRequest> = new EventEmitter<UserLoginRequest>();
+  constructor(private authService: AuthService, private router: Router) {}
 
-  userEmail: string = '';
-  userPassword: string = '';
-
-  onSubmitButtonClick() {
-    this.submitEventEmitter.emit({
-      email: this.userEmail,
-      password: this.userPassword
-    });
+  onSubmit(form: NgForm) {
+    this.authService.logIn(form.value.email, form.value.password)
+      .subscribe(() => this.router.navigateByUrl('/'));
   }
 }

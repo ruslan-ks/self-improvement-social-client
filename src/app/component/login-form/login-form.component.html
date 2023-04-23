@@ -1,20 +1,20 @@
 <div class="col-lg-6 col-md-8 col-sm-10 col-12 mx-sm-auto p-3 border-1 shadow">
-  <form>
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
     <div class="mb-3 row">
       <label for="loginEmailIn" class="col-lg-2 col-sm-3 col-form-label">{{'login.email' | translate}}</label>
       <div class="col">
-        <input type="text" name="email" class="form-control" id="loginEmailIn" [(ngModel)]="userEmail">
+        <input type="text" name="email" class="form-control" id="loginEmailIn" ngModel email required>
       </div>
     </div>
     <div class="mb-3 row">
       <label for="loginPasswordIn" class="col-lg-2 col-sm-3 col-form-label">{{'login.password' | translate}}</label>
       <div class="col">
-        <input type="password" name="password" class="form-control" id="loginPasswordIn" [(ngModel)]="userPassword">
+        <input type="password" name="password" class="form-control" id="loginPasswordIn" ngModel required>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-3 ms-auto">
-        <button class="btn btn-success w-100" (click)="onSubmitButtonClick()">
+        <button type="submit" class="btn btn-success w-100" [disabled]="!loginForm.valid">
           {{'login.logInButton' | translate}}
         </button>
       </div>
