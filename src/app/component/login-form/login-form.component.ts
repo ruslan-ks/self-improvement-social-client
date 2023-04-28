@@ -9,10 +9,25 @@ import { Router } from "@angular/router";
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent {
+  loginFailed: boolean = false;
+
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(form: NgForm) {
     this.authService.logIn(form.value.email, form.value.password)
-      .subscribe(() => this.router.navigateByUrl('/'));
+      //.subscribe((response) => this.router.navigateByUrl('/'));
+      .subscribe({
+        next: this.handleAuthSuccess.bind(this),
+        error: this.handleError.bind(this)
+      })
+  }
+
+  private handleAuthSuccess() {
+    this.router.navigateByUrl('/');
+  }
+
+  private handleError(error: any) {
+    console.log(error);
+    this.loginFailed = true;
   }
 }
