@@ -30,7 +30,8 @@ export class AuthService implements OnDestroy {
   }
 
   private removeIdTokenIfExpired() {
-    if (this.isExpired()) {
+    const expiration = this.getExpiration();
+    if (!!expiration && this.isExpired(expiration)) {
       this.removeIdToken();
       this.emitLoginStateChange(UserLoginState.LOGGED_OUT);
     }
@@ -72,25 +73,29 @@ export class AuthService implements OnDestroy {
     this.emitLoginStateChange(UserLoginState.LOGGED_OUT);
   }
 
-  private emitLoginStateChange(loginState: UserLoginState) {
+  private emitLoginStateChange(loginState: UserLoginState): void {
     this._loginStateChangeSubject.next(loginState);
   }
 
   isLoggedIn(): boolean {
     // return moment().isBefore(this.getExpiration());
-    return !this.isExpired();
+    const expiration = this.getExpiration();
+    return !!this.getIdToken() && !!expiration && !this.isExpired(expiration);
   }
 
-  private isExpired() {
-    return moment().isSameOrAfter(this.getExpiration());
+  private isExpired(expiration: Moment): boolean {
+    return moment().isSameOrAfter(expiration);
   }
 
-  private getExpiration(): Moment {
+  private getExpiration(): Moment | null {
     const expiration = localStorage.getItem(this.idTokenExpiresAtName);
+    if (!expiration) {
+      return null;
+    }
     return moment(JSON.parse(expiration!));
   }
 
-  getIdToken() {
+  getIdToken(): string | null {
     return localStorage.getItem(this.idTokenName);
   }
 }
