@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -14,6 +14,8 @@ import { Error404Component } from './component/error404/error404.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { SpinnerComponent } from './component/spinner/spinner.component';
 import { AuthInterceptor } from "./interceptor/auth-interceptor";
+import { GlobalErrorHandler } from "./error/global-error-handler";
+import { UnknownErrorComponent } from './component/unknown-error/unknown-error.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -27,7 +29,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginFormComponent,
     HomeComponent,
     Error404Component,
-    SpinnerComponent
+    SpinnerComponent,
+    UnknownErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: GlobalErrorHandler}
   ],
   bootstrap: [AppComponent]
 })

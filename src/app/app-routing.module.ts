@@ -3,12 +3,14 @@ import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./component/home/home.component";
 import { LoginFormComponent } from "./component/login-form/login-form.component";
 import { Error404Component } from "./component/error404/error404.component";
+import { UnknownErrorComponent } from "./component/unknown-error/unknown-error.component";
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginFormComponent },
+  { path: 'unknown-error', component: UnknownErrorComponent },
   { path: '**', component: Error404Component }
 ]
 

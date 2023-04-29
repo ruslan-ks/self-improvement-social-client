@@ -10,5 +10,7 @@
   "login.password": "Password",
   "login.logInButton": "Log in",
   "login.invalidCredentials": "Failed to log in: Invalid email or password",
-  "user": "User"
+  "user": "User",
+  "error.somethingWentWrong": "Something went wrong",
+  "error.backToMain": "Back to main"
 }
