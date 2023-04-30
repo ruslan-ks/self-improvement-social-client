@@ -16,6 +16,7 @@ import { SpinnerComponent } from './component/spinner/spinner.component';
 import { AuthInterceptor } from "./interceptor/auth-interceptor";
 import { GlobalErrorHandler } from "./error/global-error-handler";
 import { UnknownErrorComponent } from './component/unknown-error/unknown-error.component';
+import { GlobalHttpErrorHandler } from "./interceptor/global-http-error-handler.interceptor";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -48,6 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: GlobalHttpErrorHandler, multi: true },
     { provide: ErrorHandler, useClass: GlobalErrorHandler}
   ],
   bootstrap: [AppComponent]
