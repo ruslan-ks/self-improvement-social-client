@@ -17,6 +17,8 @@ import { AuthInterceptor } from "./interceptor/auth-interceptor";
 import { GlobalErrorHandler } from "./error/global-error-handler";
 import { UnknownErrorComponent } from './component/unknown-error/unknown-error.component';
 import { GlobalHttpErrorHandler } from "./interceptor/global-http-error-handler.interceptor";
+import { UserCardComponent } from './component/user-card/user-card.component';
+import { UsersComponent } from './component/users/users.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -31,7 +33,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     Error404Component,
     SpinnerComponent,
-    UnknownErrorComponent
+    UnknownErrorComponent,
+    UserCardComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
