@@ -3,5 +3,5 @@ export interface ResponseBody {
     statusCode: number;
     status: string;
     message: string;
-    data: Map<any, any>;
+    data: Map<string, any>;
 }
