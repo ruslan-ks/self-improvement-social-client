@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ResponseBody } from "../interface/response-body";
-import { Observable, throwError } from "rxjs";
-import { tap, catchError } from "rxjs/operators";
-import { User } from "../interface/user";
+import { map, Observable, throwError } from "rxjs";
+import { catchError, shareReplay } from "rxjs/operators";
+import { ShortUserData } from "../interface/short-user-data";
+import { PageRequest } from "./page-request";
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +12,35 @@ import { User } from "../interface/user";
 export class UserService {
   private readonly apiUrl: string = 'http://localhost:8080/users';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
+
+  getUsersPage(pr = PageRequest.getDefault()): Observable<ShortUserData[]> {
+    const sortParams = pr.sort
+      .map(value => 'sort=' + value)
+      .join('&');
+    const urlWithParams = `${this.apiUrl}?page=${pr.page}&size=${pr.size}&${sortParams}`;
+    return this.http.get<ResponseBody>(urlWithParams)
+      .pipe(
+        map(this.extractUsersArray),
+        catchError(this.handleError),
+        shareReplay()
+      );
   }
 
-  users$ = <Observable<ResponseBody>>this.http.get<ResponseBody>(this.apiUrl)
-    .pipe(
-      tap(console.log),
-      catchError(this.handleError)
-    );
+  private extractUsersArray(response: ResponseBody): ShortUserData[] {
+    console.log('Obtained users:', (<any> response.data).users);
+    return (<any> response.data).users;
+  }
 
-  save$ = (user: User) => <Observable<ResponseBody>>this.http.post(this.apiUrl, user)
-    .pipe(
-      tap(console.log),
-      catchError(this.handleError)
-    );
+  // save$ = (user: User) => <Observable<ResponseBody>>this.http.post(this.apiUrl, user)
+  //   .pipe(
+  //     tap(console.log),
+  //     catchError(this.handleError)
+  //   );
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.log(`Error: ${error}`);
-    return throwError(() => `An error occurred: ${error}`);
+    return throwError(() => `An error occurred in UserService: ${error}`);
   }
 
 }
