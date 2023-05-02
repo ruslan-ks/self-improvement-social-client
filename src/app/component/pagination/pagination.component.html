@@ -1,0 +1,20 @@
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li class="page-item" [ngClass]="{'disabled': currentPageNumber === 1}"
+        (click)="onArrowButtonClick(arrowButtonType.BACK)">
+      <button class="page-link" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </button>
+    </li>
+    <li *ngFor="let num of buttonNumbers" class="page-item" [ngClass]="{'active': num === currentPageNumber}"
+      (click)="onNumberedButtonClick(num)">
+      <button class="page-link">{{num}}</button>
+    </li>
+    <li class="page-item" [ngClass]="{'disabled': currentPageNumber === pageCount}"
+      (click)="onArrowButtonClick(arrowButtonType.FORTH)">
+      <button class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </button>
+    </li>
+  </ul>
+</nav>
