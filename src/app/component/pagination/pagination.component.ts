@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from "rxjs";
 
 enum ArrowButtonType {
   BACK = 'BACK', FORTH = 'FORTH'
@@ -10,8 +11,10 @@ enum ArrowButtonType {
   styleUrls: ['./pagination.component.css']
 })
 export class PaginationComponent implements OnInit {
-  @Input() pageCount: number = 1;
-  @Input() buttonCount: number = 3;
+  @Input() pageCount: Observable<number> = new Observable<number>();
+  _pageCount: number = 1;
+  @Input() maxButtonCount: number = 3;
+  private buttonCount = 1;
   @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
 
   buttonNumbers: number[] = Array.from({ length: this.buttonCount }, (_, i) => i + 1);
@@ -22,15 +25,17 @@ export class PaginationComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.pageCount < 1) {
-      throw new Error('Illegal property value: pageCount: ' + this.pageCount);
-    }
-    if (this.buttonCount < 1) {
+    if (this.maxButtonCount < 1) {
       throw new Error('Illegal property value: buttonCount: ' + this.buttonCount);
     }
-
-    this.buttonCount %= this.pageCount + 1;
-    this.buttonNumbers = Array.from({ length: this.buttonCount }, (_, i) => i + 1);
+    this.pageCount.subscribe(pageCount => {
+      if (pageCount < 1) {
+        throw new Error('Illegal property value: pageCount: ' + pageCount);
+      }
+      this._pageCount = pageCount;
+      this.buttonCount = Math.min(this.maxButtonCount, pageCount);
+      this.buttonNumbers = Array.from({ length: this.buttonCount }, (_, i) => i + 1);
+    });
   }
 
   onArrowButtonClick(arrowType: ArrowButtonType) {
@@ -43,7 +48,7 @@ export class PaginationComponent implements OnInit {
         }
         break;
       case ArrowButtonType.FORTH:
-        if (this.currentPageNumber < this.pageCount) {
+        if (this.currentPageNumber < this._pageCount) {
           this.currentPageNumber++;
           this.pageChange.emit(this.currentPageNumber);
         }
@@ -58,7 +63,7 @@ export class PaginationComponent implements OnInit {
       let shift = Math.abs(this.currentPageNumber - mid);
       if (this.currentPageNumber > mid) {
         // increase button numbers
-        const maxPossibleIncrement = this.pageCount - this.buttonNumbers[this.buttonNumbers.length - 1];
+        const maxPossibleIncrement = this._pageCount - this.buttonNumbers[this.buttonNumbers.length - 1];
         shift = Math.min(shift, maxPossibleIncrement);
         this.buttonNumbers = this.buttonNumbers.map(value => value + shift);
         return;
@@ -72,7 +77,7 @@ export class PaginationComponent implements OnInit {
 
   onNumberedButtonClick(pageNumber: number) {
     if (pageNumber !== this.currentPageNumber) {
-      if (pageNumber > 0 && pageNumber <= this.pageCount) {
+      if (pageNumber > 0 && pageNumber <= this._pageCount) {
         this.currentPageNumber = pageNumber;
       }
 

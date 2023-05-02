@@ -10,7 +10,7 @@
       (click)="onNumberedButtonClick(num)">
       <button class="page-link">{{num}}</button>
     </li>
-    <li class="page-item" [ngClass]="{'disabled': currentPageNumber === pageCount}"
+    <li class="page-item" [ngClass]="{'disabled': currentPageNumber === _pageCount}"
       (click)="onArrowButtonClick(arrowButtonType.FORTH)">
       <button class="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
