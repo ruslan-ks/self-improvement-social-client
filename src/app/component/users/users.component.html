@@ -1,5 +1,8 @@
 <section class="container-fluid">
-  <div class="col-md-10 col-lg-8 mx-auto">
+  <div *ngIf="users$ | async as users" class="col-md-10 col-lg-8 mx-auto">
     <app-user-card *ngFor="let user of users" [user]="user"></app-user-card>
+  </div>
+  <div class="container-fluid d-flex justify-content-center">
+    <app-pagination [maxButtonCount]="7" [pageCount]="pageCount$" (pageChange)="onPageChange($event)"></app-pagination>
   </div>
 </section>
