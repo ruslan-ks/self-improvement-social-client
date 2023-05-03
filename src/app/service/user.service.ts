@@ -14,7 +14,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUsersPage(pr = PageRequest.getDefault()): Observable<ShortUserData[]> {
+  page$ = (pr: PageRequest): Observable<ShortUserData[]> => {
     const sortParams = pr.sort
       .map(value => 'sort=' + value)
       .join('&');
@@ -32,15 +32,13 @@ export class UserService {
     return (<any> response.data).users;
   }
 
-  getCount(): Observable<number> {
-    return this.http.get<ResponseBody>(this.apiUrl + '/count')
-      .pipe(
-        map(this.extractCount),
-        tap(this.logCount),
-        catchError(this.handleError),
-        shareReplay()
-      );
-  }
+  count$: Observable<number> = this.http.get<ResponseBody>(this.apiUrl + '/count')
+    .pipe(
+      map(this.extractCount),
+      tap(this.logCount),
+      catchError(this.handleError),
+      shareReplay()
+    );
 
   private extractCount(response: ResponseBody): number {
     return (<any> response.data).count;

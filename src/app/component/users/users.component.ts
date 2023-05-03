@@ -19,16 +19,16 @@ export class UsersComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.pageCount$ = this.userService.getCount()
+    this.pageCount$ = this.userService.count$
       .pipe(
         map(count => Math.ceil(count / this.pageRequest.size))
       );
-    this.users$ = this.userService.getUsersPage(this.pageRequest);
+    this.users$ = this.userService.page$(this.pageRequest);
   }
 
   onPageChange(pageNumber: number) {
     this.pageRequest.page = pageNumber - 1;
     console.log('UsersComponent: Page changed: ', pageNumber);
-    this.users$ = this.userService.getUsersPage(this.pageRequest);
+    this.users$ = this.userService.page$(this.pageRequest);
   }
 }
