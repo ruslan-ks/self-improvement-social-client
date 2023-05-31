@@ -4,31 +4,34 @@
       <form>
         <!-- Search -->
         <div class="mb-3">
-          <label for="serarch-in" class="visually-hidden">Search</label>
-          <input type="password" class="form-control w-100" id="serarch-in" placeholder="Search">
+          <label for="serarch-in" class="visually-hidden">{{'activity.search' | translate}}</label>
+          <input type="password" class="form-control w-100" id="serarch-in"
+                 placeholder="{{'filters.search' | translate}}">
         </div>
         <!-- Categories -->
         <ul class="list-group mb-3">
-          <li class="list-group-item list-group-item-primary">Categories:</li>
-          <li class="list-group-item" *ngFor="let category of (categories$ | async)">
-            <input class="form-check-input me-1" type="checkbox" value="{{category.id}}" id="category-check{{category.id}}" autocomplete="off">
+          <li class="list-group-item list-group-item-primary">{{'activity.categories' | translate}}:</li>
+          <li class="list-group-item" *ngFor="let category of categories$ | async">
+            <input class="form-check-input me-1" type="checkbox" value="{{category.id}}"
+                   id="category-check{{category.id}}" autocomplete="off">
             <label class="form-check-label" for="category-check{{category.id}}">{{category.name}}</label>
           </li>
         </ul>
         <!-- Minutes required -->
         <div class="input-group mb-3">
           <select class="form-select" aria-label=".form-select-sm example">
-            <option selected value="lt">Less than</option>
-            <option value="gt">Greater than</option>
+            <option selected value="lt">{{'filters.lessThan' | translate}}</option>
+            <option value="gt">{{'filters.greaterThan' | translate}}</option>
           </select>
-          <input type="text" class="form-control" aria-label="Minutes required" placeholder="Minutes">
+          <input type="text" class="form-control" aria-label="Minutes required"
+                 placeholder="{{'activity.minutes' | translate}}">
         </div>
-        <button class="btn btn-outline-dark w-100">Search</button>
+        <button class="btn btn-primary w-100">{{'filters.search' | translate}}</button>
       </form>
     </div>
     <div class="col">
-      <div class="row justify-content-center">
-        <div *ngFor="let activity of (activities$ | async)" class="col-lg-6 my-2 px-2">
+      <div class="row justify-content-start">
+        <div *ngFor="let activity of activities$ | async" class="col-lg-6 my-2 px-2">
           <app-activity-card [activity]="activity" ></app-activity-card>
         </div>
       </div>

@@ -1,8 +1,17 @@
 <div class="card w-100">
   <div class="card-body">
-    <h5 class="card-title">{{activity.name}}</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary">{{activity.minutesRequired}} minutes</h6>
+    <h5 class="card-title mb-0">{{activity.name}}</h5>
+    <p class="card-subtitle mb-2 text-secondary">{{activity.minutesRequired}} {{'activity.minutes' | translate}}</p>
     <p class="card-text mb-2">{{activity.description}}</p>
-    <p class="d-flex gap-1 mb-1">Categories: <a href="#" *ngFor="let category of (categories$ | async)" class="card-link m-0">{{category.name}}</a></p>
+    <p class="card-text mb-0 text-dark">{{'activity.participants' | translate}}: {{activity.userCount}}</p>
+    <p class="d-flex gap-1 mb-2">
+      {{'activity.categories' | translate}} :
+      <a href="#" *ngFor="let category of categories$ | async" class="card-link m-0">{{category.name}}</a>
+    </p>
+    <div class="row">
+      <div class="col-4 mx-auto">
+        <button class="btn btn-primary w-100">{{'activity.join' | translate}}</button>
+      </div>
+    </div>
   </div>
 </div>
