@@ -8,4 +8,9 @@ import { ShortUserData } from "../../interface/short-user-data";
 })
 export class UserCardComponent {
   @Input() user: ShortUserData | null = null;
+
+  toAvatarUrl(user: ShortUserData | null): string {
+    return `http://localhost:8080/users/${user?.id}/avatar`;
+  }
+
 }
