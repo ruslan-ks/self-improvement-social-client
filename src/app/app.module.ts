@@ -10,7 +10,7 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { HeaderComponent } from './component/header/header.component';
 import { LoginFormComponent } from './component/login-form/login-form.component';
 import { HomeComponent } from './component/home/home.component';
-import { Error404Component } from './component/error404/error404.component';
+import { Error404Component } from './component/errors/error404/error404.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { SpinnerComponent } from './component/spinner/spinner.component';
 import { AuthInterceptor } from "./interceptor/auth-interceptor";
