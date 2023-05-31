@@ -8,6 +8,7 @@ export interface Activity {
   minutesRequired: number;
   authorId: number;
   categoryIds: number[];
+  userCount: number;
 
   // LIMITED_COMPLETIONS activity properties
   completionsLimit: number;
