@@ -17,6 +17,7 @@ import { CategoryService } from "../../service/category.service";
 export class ActivitiesComponent implements OnInit {
   activities$!: Observable<Activity[]>;
   categories$!: Observable<Category[]>;
+  count$!: Observable<number>;
 
   constructor(private activityService: ActivityService, private categoryService: CategoryService) {}
 
@@ -29,7 +30,14 @@ export class ActivitiesComponent implements OnInit {
       .pipe(
         map(response => response.activities)
       );
+    this.count$ = this.activityService.page$(pageRequest, filterCriteriaList)
+      .pipe(
+        map(response => response.count)
+      );
     this.categories$ = this.categoryService.getAll$();
   }
 
+  onPageChange(event: any) {
+
+  }
 }

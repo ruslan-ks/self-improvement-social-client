@@ -1,5 +1,5 @@
 <div class="container-lg">
-  <div class="row">
+  <div class="row mb-3">
     <div class="col-lg-3 col-md-4 my-2">
       <form>
         <!-- Search -->
@@ -33,5 +33,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="container-fluid d-flex justify-content-center">
+    <app-pagination [maxButtonCount]="5" [pageCount]="count$" (pageChange)="onPageChange($event)"></app-pagination>
   </div>
 </div>
