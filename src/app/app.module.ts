@@ -14,7 +14,7 @@ import { Error404Component } from './component/errors/error404/error404.componen
 import { AppRoutingModule } from "./app-routing.module";
 import { SpinnerComponent } from './component/spinner/spinner.component';
 import { AuthInterceptor } from "./interceptor/auth-interceptor";
-import { GlobalErrorHandler } from "./error/global-error-handler";
+import { GlobalErrorHandler } from "./error/handler/global-error-handler";
 import { UnknownErrorComponent } from './component/errors/unknown-error/unknown-error.component';
 import { GlobalHttpErrorHandler } from "./interceptor/global-http-error-handler.interceptor";
 import { UserCardComponent } from './component/user-card/user-card.component';
