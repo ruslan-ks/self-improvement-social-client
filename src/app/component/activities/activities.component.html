@@ -27,7 +27,7 @@
       </form>
     </div>
     <div class="col">
-      <div class="row justify-content-center">
+      <div class="row justify-content-start">
         <div *ngFor="let activity of (activities$ | async)" class="col-lg-6 my-2 px-2">
           <app-activity-card [activity]="activity" ></app-activity-card>
         </div>
