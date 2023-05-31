@@ -15,7 +15,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { SpinnerComponent } from './component/spinner/spinner.component';
 import { AuthInterceptor } from "./interceptor/auth-interceptor";
 import { GlobalErrorHandler } from "./error/global-error-handler";
-import { UnknownErrorComponent } from './component/unknown-error/unknown-error.component';
+import { UnknownErrorComponent } from './component/errors/unknown-error/unknown-error.component';
 import { GlobalHttpErrorHandler } from "./interceptor/global-http-error-handler.interceptor";
 import { UserCardComponent } from './component/user-card/user-card.component';
 import { UsersComponent } from './component/users/users.component';

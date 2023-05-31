@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./component/home/home.component";
 import { LoginFormComponent } from "./component/login-form/login-form.component";
 import { Error404Component } from "./component/errors/error404/error404.component";
-import { UnknownErrorComponent } from "./component/unknown-error/unknown-error.component";
+import { UnknownErrorComponent } from "./component/errors/unknown-error/unknown-error.component";
 import { UsersComponent } from "./component/users/users.component";
 
 
