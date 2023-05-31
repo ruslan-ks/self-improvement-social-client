@@ -5,10 +5,6 @@ export class PageRequest {
   size: number = 10;
   sort: string[] = [];
 
-  constructor() {
-    console.log('New page request obj');
-  }
-
   static getDefault(): PageRequest {
     return PageRequest.DEFAULT_PAGE_REQUEST;
   }

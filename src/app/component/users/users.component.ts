@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShortUserData } from "../../interface/short-user-data";
 import { UserService } from "../../service/user.service";
-import { PageRequest } from "../../service/page-request";
+import { PageRequest } from "../../service/data/page-request";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
