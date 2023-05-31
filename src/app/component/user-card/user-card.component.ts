@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ShortUserData } from "../../interface/short-user-data";
+import { ShortUserData } from "../../dto/response/short-user-data";
 
 @Component({
   selector: 'app-user-card',

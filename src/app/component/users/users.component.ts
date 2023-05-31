@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShortUserData } from "../../interface/short-user-data";
+import { ShortUserData } from "../../dto/response/short-user-data";
 import { UserService } from "../../service/user.service";
 import { PageRequest } from "../../dto/request/page-request";
 import { Observable } from "rxjs";

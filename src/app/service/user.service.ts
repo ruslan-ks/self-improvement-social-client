@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { ResponseBody } from "../interface/response-body";
+import { ResponseBody } from "../dto/response/response-body";
 import { Observable, throwError } from "rxjs";
 import { catchError, shareReplay, tap, map } from "rxjs/operators";
-import { ShortUserData } from "../interface/short-user-data";
+import { ShortUserData } from "../dto/response/short-user-data";
 import { PageRequest } from "../dto/request/page-request";
 
 @Injectable({
