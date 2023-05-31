@@ -19,7 +19,6 @@ export class GetParamsBuilder {
   build(filters: FilterCriteria[], pageRequest: EntityPageRequest | undefined): string {
     let pageParams = '';
     if (typeof pageRequest !== undefined) {
-      console.log('Object.entries:', Object.entries(pageRequest!));
       pageParams = Object.entries(pageRequest!)
         .map(([k, v]) => k + '=' + v)
         .join('&');
