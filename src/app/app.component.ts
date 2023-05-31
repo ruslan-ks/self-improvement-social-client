@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -7,11 +8,11 @@ import { Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStar
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = $localize`self-improvement-social`;
+  title: string = "";
 
   displayLoadingSpinner: boolean = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private translateService: TranslateService) {}
 
   ngOnInit() {
     this.router.events.subscribe((event: Event) => {
@@ -23,5 +24,8 @@ export class AppComponent implements OnInit {
         this.displayLoadingSpinner = false;
       }
     });
+
+    this.translateService.get(`self-improvement-social`)
+      .subscribe(value => this.title = value);
   }
 }

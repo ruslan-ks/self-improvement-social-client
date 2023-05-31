@@ -1,4 +1,4 @@
-import { FilterOperation } from "../../enum/filter-operation";
+import { FilterOperation } from "./filter-operation";
 
 export class FilterCriteria {
   field: string;
