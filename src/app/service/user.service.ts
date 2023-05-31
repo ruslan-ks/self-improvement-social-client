@@ -4,7 +4,7 @@ import { ResponseBody } from "../interface/response-body";
 import { Observable, throwError } from "rxjs";
 import { catchError, shareReplay, tap, map } from "rxjs/operators";
 import { ShortUserData } from "../interface/short-user-data";
-import { PageRequest } from "./data/page-request";
+import { PageRequest } from "../dto/request/page-request";
 
 @Injectable({
   providedIn: 'root'
