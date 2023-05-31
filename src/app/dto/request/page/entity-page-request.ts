@@ -1,3 +1,4 @@
+// Custom page request object
 export class EntityPageRequest {
   page: number = 0;
   size: number = 20;

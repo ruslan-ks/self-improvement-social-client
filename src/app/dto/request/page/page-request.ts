@@ -1,3 +1,4 @@
+// Corresponds to Spring Pageable object
 export class PageRequest {
   private static DEFAULT_PAGE_REQUEST: PageRequest = new PageRequest();
 
