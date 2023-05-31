@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { UserLoginRequest } from "../interface/user-login-request";
+import { UserLoginRequest } from "../dto/request/user-login-request";
 import { ResponseBody } from "../dto/response/response-body";
 import { shareReplay, tap } from "rxjs/operators";
 import * as moment from "moment";
