@@ -20,6 +20,7 @@ import { GlobalHttpErrorHandler } from "./interceptor/global-http-error-handler.
 import { UserCardComponent } from './component/user-card/user-card.component';
 import { UsersComponent } from './component/users/users.component';
 import { PaginationComponent } from './component/pagination/pagination.component';
+import { ActivitiesComponent } from './component/activities/activities.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -37,7 +38,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UnknownErrorComponent,
     UserCardComponent,
     UsersComponent,
-    PaginationComponent
+    PaginationComponent,
+    ActivitiesComponent
   ],
   imports: [
     BrowserModule,
