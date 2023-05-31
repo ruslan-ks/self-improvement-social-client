@@ -22,6 +22,7 @@ import { UsersComponent } from './component/users/users.component';
 import { PaginationComponent } from './component/pagination/pagination.component';
 import { ActivitiesComponent } from './component/activities/activities.component';
 import { ActivityCardComponent } from './component/activity-card/activity-card.component';
+import { ActivityFiltersComponent } from './component/activity-filters/activity-filters.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -41,7 +42,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UsersComponent,
     PaginationComponent,
     ActivitiesComponent,
-    ActivityCardComponent
+    ActivityCardComponent,
+    ActivityFiltersComponent
   ],
   imports: [
     BrowserModule,
