@@ -1,8 +1,8 @@
-import { FilterCriteria } from "./filter-criteria";
-import { FilterOperation } from "./filter-operation";
-import { NoSuchElementError } from "../../../error/no-such-element-error";
+import { FilterCriteria } from "../dto/request/fitler/filter-criteria";
+import { FilterOperation } from "../dto/request/fitler/filter-operation";
+import { NoSuchElementError } from "../error/no-such-element-error";
 import { Injectable } from "@angular/core";
-import { EntityPageRequest } from "../page/entity-page-request";
+import { EntityPageRequest } from "../dto/request/page/entity-page-request";
 
 @Injectable({
   providedIn: 'root',
@@ -19,15 +19,16 @@ export class GetParamsBuilder {
   build(filters: FilterCriteria[], pageRequest: EntityPageRequest | undefined): string {
     let pageParams = '';
     if (typeof pageRequest !== undefined) {
+      console.log('Object.entries:', Object.entries(pageRequest!));
       pageParams = Object.entries(pageRequest!)
-        .map((k, v) => k + '=' + v)
+        .map(([k, v]) => k + '=' + v)
         .join('&');
       pageParams += '&';
     }
-    const filterQuery = filters
+    const filterQuery = 'query=' + filters
       .map(f => f.field + ' ' + this.toCode(f.operation) + ' ' + f.value)
       .join(';');
-    return '?' + pageParams + filterQuery;
+    return pageParams + filterQuery;
   }
 
   private toCode(operation: FilterOperation): string {

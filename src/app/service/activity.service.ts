@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FilterCriteria } from "../dto/request/fitler/filter-criteria";
 import { HttpClient } from "@angular/common/http";
-import { GetParamsBuilder } from "../dto/request/fitler/get-params-builder.service";
+import { GetParamsBuilder } from "./get-params-builder.service";
 import { EntityPageRequest } from "../dto/request/page/entity-page-request";
 import { AppSettings } from "../app-settings";
 import { map, shareReplay } from "rxjs/operators";
@@ -17,7 +17,7 @@ export class ActivityService {
 
   page$ = (pageRequest: EntityPageRequest, filters: FilterCriteria[]): Observable<ActivityPageResponse> => {
     const urlParams = this.getParamsBuilder.build(filters, pageRequest);
-    return this.http.get<ResponseBody>(AppSettings.API_URL + 'activities' + urlParams)
+    return this.http.get<ResponseBody>(AppSettings.API_URL + 'activities?' + urlParams)
       .pipe(
         map(this.extractActivityPageResponse),
         shareReplay()

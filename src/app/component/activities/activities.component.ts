@@ -19,25 +19,29 @@ export class ActivitiesComponent implements OnInit {
   categories$!: Observable<Category[]>;
   count$!: Observable<number>;
 
+  private pageRequest = new EntityPageRequest(0, 20, 'name', 'ASC');
+  private filterCriteriaList = [new FilterCriteria('name', FilterOperation.LIKE, 'ING')];
+
   constructor(private activityService: ActivityService, private categoryService: CategoryService) {}
 
   ngOnInit(): void {
-    const pageRequest = new EntityPageRequest(0, 20, 'name', 'ASC');
-    const filterCriteriaList = [new FilterCriteria('name', FilterOperation.LIKE, 'ING')];
-    // this.activityService.page$(pageRequest, filterCriteriaList)
-    //   .subscribe((pageResponse: ActivityPageResponse) => console.log(pageResponse));
-    this.activities$ = this.activityService.page$(pageRequest, filterCriteriaList)
-      .pipe(
-        map(response => response.activities)
-      );
-    this.count$ = this.activityService.page$(pageRequest, filterCriteriaList)
-      .pipe(
-        map(response => response.count)
-      );
+    this.loadPage();
     this.categories$ = this.categoryService.getAll$();
   }
 
-  onPageChange(event: any) {
+  loadPage(): void {
+    this.activities$ = this.activityService.page$(this.pageRequest, this.filterCriteriaList)
+      .pipe(
+        map(response => response.activities)
+      );
+    this.count$ = this.activityService.page$(this.pageRequest, this.filterCriteriaList)
+      .pipe(
+        map(response => response.count)
+      );
+  }
 
+  onPageChange(page: number) {
+    this.pageRequest.page = page - 1;
+    this.loadPage();
   }
 }
