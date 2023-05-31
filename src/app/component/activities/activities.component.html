@@ -10,7 +10,7 @@
         <!-- Categories -->
         <ul class="list-group mb-3">
           <li class="list-group-item list-group-item-primary">Categories:</li>
-          <li class="list-group-item" *ngFor="let category of (categories$ | async)">
+          <li class="list-group-item" *ngFor="let category of categories$ | async">
             <input class="form-check-input me-1" type="checkbox" value="{{category.id}}" id="category-check{{category.id}}" autocomplete="off">
             <label class="form-check-label" for="category-check{{category.id}}">{{category.name}}</label>
           </li>
@@ -28,7 +28,7 @@
     </div>
     <div class="col">
       <div class="row justify-content-start">
-        <div *ngFor="let activity of (activities$ | async)" class="col-lg-6 my-2 px-2">
+        <div *ngFor="let activity of activities$ | async" class="col-lg-6 my-2 px-2">
           <app-activity-card [activity]="activity" ></app-activity-card>
         </div>
       </div>

@@ -3,6 +3,6 @@
     <h5 class="card-title">{{activity.name}}</h5>
     <h6 class="card-subtitle mb-2 text-body-secondary">{{activity.minutesRequired}} minutes</h6>
     <p class="card-text mb-2">{{activity.description}}</p>
-    <p class="d-flex gap-1 mb-1">Categories: <a href="#" *ngFor="let category of (categories$ | async)" class="card-link m-0">{{category.name}}</a></p>
+    <p class="d-flex gap-1 mb-1">Categories: <a href="#" *ngFor="let category of categories$ | async" class="card-link m-0">{{category.name}}</a></p>
   </div>
 </div>
