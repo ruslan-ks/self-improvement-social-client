@@ -3,6 +3,7 @@ import { FilterOperation } from "../dto/request/fitler/filter-operation";
 import { NoSuchElementError } from "../error/no-such-element-error";
 import { Injectable } from "@angular/core";
 import { EntityPageRequest } from "../dto/request/page/entity-page-request";
+import { PageRequest } from "../dto/request/page/page-request";
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,12 @@ export class GetParamsBuilder {
       .map(f => f.field + ' ' + this.toCode(f.operation) + ' ' + f.value)
       .join(';');
     return pageParams + filterQuery;
+  }
+
+  pageRequestBuild(pageRequest: PageRequest): string {
+    return Object.entries(pageRequest)
+      .map(([k, v]) => k + '=' + v)
+      .join('&');
   }
 
   private toCode(operation: FilterOperation): string {
