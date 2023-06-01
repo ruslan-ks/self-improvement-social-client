@@ -14,7 +14,7 @@ export class UserActivityStatisticsComponent implements OnInit {
 
   @Input({required: true}) userActivities!: Observable<UserActivity[]>;
 
-  chart!: Chart;
+  categoriesCompletionsChart!: Chart;
 
   constructor(private categoryService: CategoryService) {}
 
@@ -24,6 +24,8 @@ export class UserActivityStatisticsComponent implements OnInit {
         let startedAt = new Date(a.startedAt * 1000);
         console.log(startedAt);
       });
+
+      this.initActivitiesCompletionsChart(userActivities);
 
       const categoryIdCompletionsCountMap = new Map<number, number>();
       userActivities.map(userActivity => userActivity.activity.categoryIds)
@@ -42,16 +44,13 @@ export class UserActivityStatisticsComponent implements OnInit {
           const categoryNameCompletionsMap = new Map(Array.from(categoryIdCompletionsCountMap,
             ([k, v]) => [categories.find(c => c.id === k)!.name, v]));
           console.log('Category completions map: ', categoryNameCompletionsMap);
-          this.initChart(categoryNameCompletionsMap);
+          this.initCategoriesCompletionsChart(categoryNameCompletionsMap);
         })
     });
   }
 
-  initChart(categoryCompletionCountMap: Map<string, number>) {
+  initCategoriesCompletionsChart(categoryCompletionCountMap: Map<string, number>) {
     Chart.register(...registerables);
-
-
-
     const config: ChartConfiguration = {
       type: 'bar',
       data: {
@@ -89,8 +88,48 @@ export class UserActivityStatisticsComponent implements OnInit {
         }
       }
     };
-
-    this.chart = new Chart("statistics-chart", config);
+    this.categoriesCompletionsChart = new Chart("categories-completions-count-chart", config);
   }
 
+  initActivitiesCompletionsChart(userActivities: UserActivity[]) {
+    Chart.register(...registerables);
+    const config: ChartConfiguration = {
+      type: 'bar',
+      data: {
+        labels: userActivities.map(ua => ua.activity.name),
+        datasets: [{
+          data: userActivities.map(ua => ua.completions.length),
+          backgroundColor: Array(userActivities.length).fill('rgba(87,235,54,0.2)'),
+          borderColor: Array(userActivities.length).fill('rgb(66,235,54)'),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1,
+              font: {
+                size: 18
+              }
+            }
+          },
+          x: {
+            ticks: {
+              font: {
+                size: 18
+              }
+            }
+          }
+        }
+      }
+    };
+    this.categoriesCompletionsChart = new Chart("activities-completions-count-chart", config);
+  }
 }
