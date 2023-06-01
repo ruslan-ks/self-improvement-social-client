@@ -25,7 +25,7 @@ export class UserActivityStatisticsComponent implements OnInit {
         console.log(startedAt);
       });
 
-      this.initActivitiesCompletionsChart(userActivities);
+      this.initActivitiesCompletionsBars(userActivities);
 
       const categoryIdCompletionsCountMap = new Map<number, number>();
       userActivities.map(userActivity => userActivity.activity.categoryIds)
@@ -44,12 +44,13 @@ export class UserActivityStatisticsComponent implements OnInit {
           const categoryNameCompletionsMap = new Map(Array.from(categoryIdCompletionsCountMap,
             ([k, v]) => [categories.find(c => c.id === k)!.name, v]));
           console.log('Category completions map: ', categoryNameCompletionsMap);
-          this.initCategoriesCompletionsChart(categoryNameCompletionsMap);
+          this.initCategoriesCompletionsBars(categoryNameCompletionsMap);
+          this.initCategoriesCompletionsCountPie(categoryNameCompletionsMap);
         })
     });
   }
 
-  initCategoriesCompletionsChart(categoryCompletionCountMap: Map<string, number>) {
+  initCategoriesCompletionsBars(categoryCompletionCountMap: Map<string, number>) {
     Chart.register(...registerables);
     const config: ChartConfiguration = {
       type: 'bar',
@@ -88,10 +89,10 @@ export class UserActivityStatisticsComponent implements OnInit {
         }
       }
     };
-    this.categoriesCompletionsChart = new Chart("categories-completions-count-chart", config);
+    this.categoriesCompletionsChart = new Chart("categories-completions-count-bars", config);
   }
 
-  initActivitiesCompletionsChart(userActivities: UserActivity[]) {
+  initActivitiesCompletionsBars(userActivities: UserActivity[]) {
     Chart.register(...registerables);
     const config: ChartConfiguration = {
       type: 'bar',
@@ -130,6 +131,34 @@ export class UserActivityStatisticsComponent implements OnInit {
         }
       }
     };
-    this.categoriesCompletionsChart = new Chart("activities-completions-count-chart", config);
+    this.categoriesCompletionsChart = new Chart("activities-completions-count-bars", config);
+  }
+
+  initCategoriesCompletionsCountPie(categoryCompletionCountMap: Map<string, number>) {
+    Chart.register(...registerables);
+    const config: ChartConfiguration = {
+      type: 'pie',
+      data: {
+        labels: Array.from(categoryCompletionCountMap.keys()),
+        datasets: [{
+          data: Array.from(categoryCompletionCountMap.values()),
+          borderWidth: 1
+        }]
+  },
+    options: {
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom',
+          labels: {
+            font: {
+              size: 18
+            }
+          }
+        }
+      }
+    }
+  };
+    this.categoriesCompletionsChart = new Chart("categories-completions-count-pie", config);
   }
 }
