@@ -1,6 +1,7 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
@@ -23,6 +24,8 @@ import { PaginationComponent } from './component/pagination/pagination.component
 import { ActivitiesComponent } from './component/activities/activities.component';
 import { ActivityCardComponent } from './component/activity-card/activity-card.component';
 import { ActivityFiltersComponent } from './component/activity-filters/activity-filters.component';
+import { UserProfileComponent } from './component/user-profile/user-profile.component';
+import { UserActivityStatisticsComponent } from './component/user-activity-statistics/user-activity-statistics.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -43,11 +46,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     PaginationComponent,
     ActivitiesComponent,
     ActivityCardComponent,
-    ActivityFiltersComponent
+    ActivityFiltersComponent,
+    UserProfileComponent,
+    UserActivityStatisticsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    CommonModule,
     HttpClientModule,
     AppRoutingModule,
     TranslateModule.forRoot({

@@ -18,6 +18,8 @@
   "filters.search": "Search",
   "filters.lessThan": "Less than",
   "filters.greaterThan": "Greater than",
+  "statistics.activityCompletionsPerCategory": "Activity completions per category",
+  "statistics.activityCompletions": "Activity completions",
   "error.somethingWentWrong": "Something went wrong",
   "error.backToMain": "Back to main"
 }
