@@ -31,9 +31,9 @@ export class UserActivityStatisticsComponent implements OnInit {
         .filter(FunctionUtil.unique)
         .forEach(id => categoryIdCompletionsCountMap.set(id, 0));
 
-      userActivities.forEach(userActivity => {
-        userActivity.activity.categoryIds.forEach(id => {
-          categoryIdCompletionsCountMap.set(id, categoryIdCompletionsCountMap.get(id)! + 1)
+      userActivities.forEach(ua => {
+        ua.activity.categoryIds.forEach(id => {
+          categoryIdCompletionsCountMap.set(id, categoryIdCompletionsCountMap.get(id)! + ua.completions.length)
         });
       });
 
