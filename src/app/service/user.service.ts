@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ResponseBody } from "../dto/response/response-body";
 import { Observable, throwError } from "rxjs";
 import { catchError, shareReplay, tap, map } from "rxjs/operators";
-import { ShortUserData } from "../dto/response/short-user-data";
 import { PageRequest } from "../dto/request/page/page-request";
 import { AppSettings } from "../app-settings";
 import { User } from "../interface/user";
@@ -16,7 +15,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  page$ = (pr: PageRequest): Observable<ShortUserData[]> => {
+  page$ = (pr: PageRequest): Observable<User[]> => {
     const sortParams = pr.sort
       .map(value => 'sort=' + value)
       .join('&');
@@ -29,7 +28,7 @@ export class UserService {
       );
   }
 
-  private extractUsersArray(response: ResponseBody): ShortUserData[] {
+  private extractUsersArray(response: ResponseBody): User[] {
     console.log('Obtained users:', (<any> response.data).users);
     return (<any> response.data).users;
   }

@@ -1,7 +1,6 @@
 <div class="container-sm">
-  <div *ngIf="user$ | async as user">
-    <p>{{user.name}}</p>
-    <p>{{user.surname}}</p>
+  <div class="container" *ngIf="user$ | async as user">
+    <app-user-card [user]="user"></app-user-card>
   </div>
   <div class="container">
     <app-user-activity-statistics [userActivities]="userActivities$"></app-user-activity-statistics>
