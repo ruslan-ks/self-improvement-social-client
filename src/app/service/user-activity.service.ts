@@ -24,5 +24,11 @@ export class UserActivityService {
       );
   }
 
+  count$ = (userId: number) => this.http.get<ResponseBody>(`${AppSettings.API_URL}users/${userId}/activities/count`)
+    .pipe(
+      map((response): number => (<any> response.data)['userActivityCount']),
+      shareReplay()
+    );
+
   private extractUserActivities = (response: ResponseBody): UserActivity[] => (<any> response.data).userActivities;
 }

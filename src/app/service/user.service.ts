@@ -66,4 +66,7 @@ export class UserService {
     return throwError(() => `An error occurred in UserService: ${error}`);
   }
 
+  getAvatarUrl(userId: number): string {
+    return this.apiUrl + '/' + userId + '/avatar';
+  }
 }
