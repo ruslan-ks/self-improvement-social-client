@@ -55,6 +55,20 @@ export class UserService {
       shareReplay()
     );
 
+  followersCount = (userId: number): Observable<number> =>
+    this.http.get<ResponseBody>(`${this.apiUrl}/${userId}/followers/count`)
+      .pipe(
+        map(response => (<any> response.data).followersCount),
+        shareReplay()
+      );
+
+  followingsCount = (userId: number): Observable<number> =>
+    this.http.get<ResponseBody>(`${this.apiUrl}/${userId}/followings/count`)
+      .pipe(
+        map(response => (<any> response.data).followingsCount),
+        shareReplay()
+      );
+
   // save$ = (user: User) => <Observable<ResponseBody>>this.http.post(this.apiUrl, user)
   //   .pipe(
   //     tap(console.log),

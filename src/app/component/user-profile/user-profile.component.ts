@@ -22,6 +22,8 @@ export class UserProfileComponent implements OnInit {
   userActivities$!: Observable<UserActivity[]>;
   userActivityCount$!: Observable<number>;
   createdActivitiesCount$!: Observable<number>;
+  followersCount$!: Observable<number>;
+  followingsCount$!: Observable<number>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
@@ -40,6 +42,9 @@ export class UserProfileComponent implements OnInit {
       .pipe(
         map(map => map.count)
       );
+
+    this.followersCount$ = this.userService.followersCount(userId);
+    this.followingsCount$ = this.userService.followingsCount(userId);
   }
 
   getAvatarUrl(userId: number): string {
