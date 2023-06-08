@@ -21,7 +21,7 @@ export class GetParamsBuilder {
     let pageParams = '';
     if (typeof pageRequest !== undefined) {
       pageParams = Object.entries(pageRequest!)
-        .map(([k, v]) => k + '=' + v)
+        .map(([k, v]) => v ? k + '=' + v : '')
         .join('&');
       pageParams += '&';
     }

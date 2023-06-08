@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ShortUserData } from "../../dto/response/short-user-data";
 import { UserService } from "../../service/user.service";
 import { PageRequest } from "../../dto/request/page/page-request";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { User } from "../../interface/user";
 
 @Component({
   selector: 'app-users',
@@ -13,7 +13,7 @@ import { map } from "rxjs/operators";
 export class UsersComponent implements OnInit {
   private pageRequest: PageRequest = { page: 0, size: 2, sort: [] };
 
-  users$: Observable<ShortUserData[]> = new Observable<ShortUserData[]>();
+  users$: Observable<User[]> = new Observable<User[]>();
   pageCount$: Observable<number> = new Observable<number>();
 
   constructor(private userService: UserService) {}

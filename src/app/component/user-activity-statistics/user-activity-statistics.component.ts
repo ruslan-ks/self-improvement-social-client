@@ -100,8 +100,8 @@ export class UserActivityStatisticsComponent implements OnInit {
         labels: userActivities.map(ua => ua.activity.name),
         datasets: [{
           data: userActivities.map(ua => ua.completions.length),
-          backgroundColor: Array(userActivities.length).fill('rgba(255, 99, 132, 0.2)'),
-          borderColor: Array(userActivities.length).fill('rgba(255, 99, 132, 1)'),
+          backgroundColor: Array(userActivities.length).fill('rgba(54, 162, 235, 0.2)'),
+          borderColor: Array(userActivities.length).fill('rgba(54, 162, 235, 1)'),
           borderWidth: 1
         }]
       },

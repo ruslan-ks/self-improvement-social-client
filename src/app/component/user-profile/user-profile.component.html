@@ -1,9 +1,46 @@
-<div class="container-sm">
-  <div *ngIf="user$ | async as user">
-    <p>{{user.name}}</p>
-    <p>{{user.surname}}</p>
+<div class="container-md">
+  <div class="container" *ngIf="user$ | async as user">
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <div class="ratio ratio-1x1 rounded-circle overflow-hidden">
+              <img [src]="getAvatarUrl(user.id)" alt="avatar" class="img-cover">
+            </div>
+            <button type="button" class="btn btn-primary col-12 mt-2">Follow</button>
+          </div>
+        </div>
+      </div>
+      <div class="col ps-0">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <h5 class="my-1">{{user.name}} <span *ngIf="user.surname">{{user.surname}}</span></h5>
+            </div>
+            <hr>
+            <div class="row">
+              <a href="#" class="card-link">User activities: {{userActivityCount$ | async}}</a>
+            </div>
+            <hr>
+            <div class="row">
+              <a href="#" class="card-link">Created activities: {{createdActivitiesCount$ | async}}</a>
+            </div>
+            <hr>
+            <div class="row">
+              <a href="#" class="card-link">Followers: {{followersCount$ | async}}</a>
+            </div>
+            <hr>
+            <div class="row">
+              <a href="#" class="card-link">Follows: {{followingsCount$ | async}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="container">
-    <app-user-activity-statistics [userActivities]="userActivities$"></app-user-activity-statistics>
-  </div>
+
+<div class="container">
+  <app-user-activity-statistics [userActivities]="userActivities$"></app-user-activity-statistics>
+</div>
+<br>
 </div>
