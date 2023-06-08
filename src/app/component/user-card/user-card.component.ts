@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ShortUserData } from "../../dto/response/short-user-data";
+import { User } from "../../interface/user";
 
 @Component({
   selector: 'app-user-card',
@@ -7,9 +7,9 @@ import { ShortUserData } from "../../dto/response/short-user-data";
   styleUrls: ['./user-card.component.css']
 })
 export class UserCardComponent {
-  @Input() user: ShortUserData | null = null;
+  @Input({ required: true }) user: User | null = null;
 
-  toAvatarUrl(user: ShortUserData | null): string {
+  toAvatarUrl(user: User | null): string {
     return `http://localhost:8080/users/${user?.id}/avatar`;
   }
 

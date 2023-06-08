@@ -24,6 +24,16 @@ export class ActivityService {
       );
   }
 
+  // Returns not only page records, but also additional data, including total items count, page size and number
+  pageData$ = (pageRequest: EntityPageRequest, filters: FilterCriteria[]): Observable<Map<string, any>> => {
+    const urlParams = this.getParamsBuilder.build(filters, pageRequest);
+    return this.http.get<ResponseBody>(AppSettings.API_URL + 'activities?' + urlParams)
+      .pipe(
+        map(response => response.data),
+        shareReplay()
+      );
+  }
+
   private extractActivityPageResponse(responseBody: ResponseBody): ActivityPageResponse {
     const data = <any> responseBody.data;
     return {

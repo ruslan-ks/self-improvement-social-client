@@ -3,18 +3,19 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ResponseBody } from "../dto/response/response-body";
 import { Observable, throwError } from "rxjs";
 import { catchError, shareReplay, tap, map } from "rxjs/operators";
-import { ShortUserData } from "../dto/response/short-user-data";
 import { PageRequest } from "../dto/request/page/page-request";
+import { AppSettings } from "../app-settings";
+import { User } from "../interface/user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private readonly apiUrl: string = 'http://localhost:8080/users';
+  private readonly apiUrl: string = AppSettings.API_URL + 'users';
 
   constructor(private http: HttpClient) {}
 
-  page$ = (pr: PageRequest): Observable<ShortUserData[]> => {
+  page$ = (pr: PageRequest): Observable<User[]> => {
     const sortParams = pr.sort
       .map(value => 'sort=' + value)
       .join('&');
@@ -27,7 +28,7 @@ export class UserService {
       );
   }
 
-  private extractUsersArray(response: ResponseBody): ShortUserData[] {
+  private extractUsersArray(response: ResponseBody): User[] {
     console.log('Obtained users:', (<any> response.data).users);
     return (<any> response.data).users;
   }
@@ -48,6 +49,26 @@ export class UserService {
     console.log('Obtained users count:', count);
   }
 
+  getById$ = (userId: number): Observable<User> => this.http.get<ResponseBody>(`${this.apiUrl}/${userId}`)
+    .pipe(
+      map(response => (<any> response.data).user),
+      shareReplay()
+    );
+
+  followersCount = (userId: number): Observable<number> =>
+    this.http.get<ResponseBody>(`${this.apiUrl}/${userId}/followers/count`)
+      .pipe(
+        map(response => (<any> response.data).followersCount),
+        shareReplay()
+      );
+
+  followingsCount = (userId: number): Observable<number> =>
+    this.http.get<ResponseBody>(`${this.apiUrl}/${userId}/followings/count`)
+      .pipe(
+        map(response => (<any> response.data).followingsCount),
+        shareReplay()
+      );
+
   // save$ = (user: User) => <Observable<ResponseBody>>this.http.post(this.apiUrl, user)
   //   .pipe(
   //     tap(console.log),
@@ -59,4 +80,7 @@ export class UserService {
     return throwError(() => `An error occurred in UserService: ${error}`);
   }
 
+  getAvatarUrl(userId: number): string {
+    return this.apiUrl + '/' + userId + '/avatar';
+  }
 }
