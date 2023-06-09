@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivityService } from "../../service/activity.service";
 import { EntityPageRequest } from "../../dto/request/page/entity-page-request";
 import { FilterCriteria } from "../../dto/request/fitler/filter-criteria";
-import { FilterOperation } from "../../dto/request/fitler/filter-operation";
 import { Observable } from "rxjs";
 import { Activity } from "../../interface/activity";
 import { map } from "rxjs/operators";
@@ -20,7 +19,7 @@ export class ActivitiesComponent implements OnInit {
   count$!: Observable<number>;
 
   private pageRequest = new EntityPageRequest(0, 20, 'name', 'ASC');
-  private filterCriteriaList = [new FilterCriteria('name', FilterOperation.LIKE, 'ING')];
+  private filterCriteriaList: FilterCriteria[] = []; //[new FilterCriteria('name', FilterOperation.LIKE, 'ING')];
 
   constructor(private activityService: ActivityService, private categoryService: CategoryService) {}
 
@@ -42,6 +41,11 @@ export class ActivitiesComponent implements OnInit {
 
   onPageChange(page: number) {
     this.pageRequest.page = page - 1;
+    this.loadPage();
+  }
+
+  onFiltersChange(criteriaList: FilterCriteria[]) {
+    this.filterCriteriaList = criteriaList;
     this.loadPage();
   }
 }
