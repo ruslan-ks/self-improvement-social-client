@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable } from "rxjs";
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 enum ArrowButtonType {
   BACK = 'BACK', FORTH = 'FORTH'
@@ -10,12 +9,11 @@ enum ArrowButtonType {
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.css']
 })
-export class PaginationComponent implements OnInit {
-  @Input() pageCount: Observable<number> = new Observable<number>();
-  _pageCount: number = 1;
+export class PaginationComponent implements OnInit, OnChanges {
+  @Input({ required: true }) pageCount: number;
   @Input() maxButtonCount: number = 3;
-  private buttonCount = 1;
   @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
+  private buttonCount = 1;
 
   buttonNumbers: number[] = Array.from({ length: this.buttonCount }, (_, i) => i + 1);
   currentPageNumber: number = 1;
@@ -28,14 +26,19 @@ export class PaginationComponent implements OnInit {
     if (this.maxButtonCount < 1) {
       throw new Error('Illegal property value: buttonCount: ' + this.buttonCount);
     }
-    this.pageCount.subscribe(pageCount => {
-      if (pageCount < 1) {
-        throw new Error('Illegal property value: pageCount: ' + pageCount);
-      }
-      this._pageCount = pageCount;
-      this.buttonCount = Math.min(this.maxButtonCount, pageCount);
-      this.buttonNumbers = Array.from({ length: this.buttonCount }, (_, i) => i + 1);
-    });
+    this.setButtons();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.setButtons();
+  }
+
+  private setButtons() {
+    if (this.pageCount < 1) {
+      this.pageCount = 1;
+    }
+    this.buttonCount = Math.min(this.maxButtonCount, this.pageCount);
+    this.buttonNumbers = Array.from({ length: this.buttonCount }, (_, i) => i + 1);
   }
 
   onArrowButtonClick(arrowType: ArrowButtonType) {
@@ -48,7 +51,7 @@ export class PaginationComponent implements OnInit {
         }
         break;
       case ArrowButtonType.FORTH:
-        if (this.currentPageNumber < this._pageCount) {
+        if (this.currentPageNumber < this.pageCount) {
           this.currentPageNumber++;
           this.pageChange.emit(this.currentPageNumber);
         }
@@ -63,7 +66,7 @@ export class PaginationComponent implements OnInit {
       let shift = Math.abs(this.currentPageNumber - mid);
       if (this.currentPageNumber > mid) {
         // increase button numbers
-        const maxPossibleIncrement = this._pageCount - this.buttonNumbers[this.buttonNumbers.length - 1];
+        const maxPossibleIncrement = this.pageCount - this.buttonNumbers[this.buttonNumbers.length - 1];
         shift = Math.min(shift, maxPossibleIncrement);
         this.buttonNumbers = this.buttonNumbers.map(value => value + shift);
         return;
@@ -77,7 +80,7 @@ export class PaginationComponent implements OnInit {
 
   onNumberedButtonClick(pageNumber: number) {
     if (pageNumber !== this.currentPageNumber) {
-      if (pageNumber > 0 && pageNumber <= this._pageCount) {
+      if (pageNumber > 0 && pageNumber <= this.pageCount) {
         this.currentPageNumber = pageNumber;
       }
 
