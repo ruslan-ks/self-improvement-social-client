@@ -39,7 +39,7 @@ export class ActivityFiltersComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.filtersForm);
+    // console.log(this.filtersForm);
 
     const criteriaList = [];
 
@@ -63,8 +63,6 @@ export class ActivityFiltersComponent implements OnInit {
         criteriaList.push(new FilterCriteria('categories', FilterOperator.CONTAINS, id));
       }
     }
-
-    console.log('Criteria list:', criteriaList);
 
     this.onSearchClick.emit(criteriaList);
   }
