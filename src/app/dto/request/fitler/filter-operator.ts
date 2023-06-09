@@ -1,4 +1,4 @@
-export enum FilterOperation {
+export enum FilterOperator {
   EQUAL = 'EQUAL',
   LIKE = 'LIKE',
   CONTAINS = 'CONTAINS',
