@@ -3,6 +3,15 @@
     <h5 class="card-title mb-0">{{activity.name}}</h5>
     <p class="card-subtitle mb-2 text-secondary">{{activity.minutesRequired}} {{'activity.minutes' | translate}}</p>
     <p class="card-text mb-2">{{activity.description}}</p>
+    <div *ngIf="activity.type === activityType.LIMITED_COMPLETIONS ||
+        activity.type === activityType.PERIODICAL_LIMITED_COMPLETIONS">
+      <p class="card-text text-secondary">
+        Completions limit: {{activity.completionsLimit}}
+        <span *ngIf="activity.type === activityType.PERIODICAL_LIMITED_COMPLETIONS">
+          per {{minutesToDays(activity.periodDurationMinutes)}} days
+        </span>
+      </p>
+    </div>
     <p class="card-text mb-0 text-dark">{{'activity.participants' | translate}}: {{activity.userCount}}</p>
     <p class="d-flex gap-1 mb-2">
       {{'activity.categories' | translate}} :

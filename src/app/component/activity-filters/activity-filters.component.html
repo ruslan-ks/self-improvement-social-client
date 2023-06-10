@@ -1,27 +1,28 @@
-<form class="w-100">
+<form class="w-100" (submit)="onSubmit()" [formGroup]="filtersForm">
   <!-- Search -->
   <div class="mb-3">
-    <label for="serarch-in" class="visually-hidden">{{'activity.search' | translate}}</label>
-    <input type="password" class="form-control w-100" id="serarch-in"
+    <label for="search-in" class="visually-hidden">{{'activity.search' | translate}}</label>
+    <input formControlName="search" type="text" class="form-control w-100" id="search-in"
            placeholder="{{'filters.search' | translate}}">
   </div>
   <!-- Categories -->
-  <ul class="list-group mb-3">
+  <ul class="list-group mb-3" formGroupName="categories">
     <li class="list-group-item list-group-item-primary">{{'activity.categories' | translate}}:</li>
     <li class="list-group-item" *ngFor="let category of categories$ | async">
-      <input class="form-check-input me-1" type="checkbox" value="{{category.id}}"
+      <input formControlName="{{category.id}}" type="checkbox" value="{{category.id}}" class="form-check-input me-1"
              id="category-check{{category.id}}" autocomplete="off">
       <label class="form-check-label" for="category-check{{category.id}}">{{category.name}}</label>
     </li>
   </ul>
   <!-- Minutes required -->
   <div class="input-group mb-3">
-    <select class="form-select" aria-label=".form-select-sm example">
-      <option selected value="lt">{{'filters.lessThan' | translate}}</option>
-      <option value="gt">{{'filters.greaterThan' | translate}}</option>
+    <select formControlName="minutesRequiredOperator" class="form-select" aria-label=".form-select-sm example">
+      <option value="{{filterOperator.LESS_EQUAL}}">{{'filters.lessThan' | translate}}</option>
+      <option value="{{filterOperator.GREATER_EQUAL}}">{{'filters.greaterThan' | translate}}</option>
     </select>
-    <input type="text" class="form-control" aria-label="Minutes required"
+    <input formControlName="minutesRequired" type="text" class="form-control" aria-label="Minutes required"
            placeholder="{{'activity.minutes' | translate}}">
   </div>
-  <button class="btn btn-primary w-100">{{'filters.search' | translate}}</button>
+  <button type="submit" class="btn btn-primary w-100">{{'filters.search' | translate}}</button>
+<!--  {{filtersForm.value | json}}-->
 </form>

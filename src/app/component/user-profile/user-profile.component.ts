@@ -9,7 +9,7 @@ import { PageRequest } from "../../dto/request/page/page-request";
 import { ActivityService } from "../../service/activity.service";
 import { EntityPageRequest } from "../../dto/request/page/entity-page-request";
 import { FilterCriteria } from "../../dto/request/fitler/filter-criteria";
-import { FilterOperation } from "../../dto/request/fitler/filter-operation";
+import { FilterOperator } from "../../dto/request/fitler/filter-operator";
 import { map } from "rxjs/operators";
 
 @Component({
@@ -37,7 +37,7 @@ export class UserProfileComponent implements OnInit {
     // this.userActivities$.subscribe(console.log);
     this.userActivityCount$ = this.userActivityService.count$(userId);
 
-    const filterCriteria = new FilterCriteria("author", FilterOperation.EQUAL, userId);
+    const filterCriteria = new FilterCriteria("author", FilterOperator.EQUAL, userId);
     this.createdActivitiesCount$ = this.activityService.page$(EntityPageRequest.getDefault(), [filterCriteria])
       .pipe(
         map(map => map.count)

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivityService } from "../../service/activity.service";
 import { EntityPageRequest } from "../../dto/request/page/entity-page-request";
 import { FilterCriteria } from "../../dto/request/fitler/filter-criteria";
-import { FilterOperation } from "../../dto/request/fitler/filter-operation";
 import { Observable } from "rxjs";
 import { Activity } from "../../interface/activity";
 import { map } from "rxjs/operators";
@@ -15,12 +14,12 @@ import { CategoryService } from "../../service/category.service";
   styleUrls: ['./activities.component.css']
 })
 export class ActivitiesComponent implements OnInit {
-  activities$!: Observable<Activity[]>;
-  categories$!: Observable<Category[]>;
-  count$!: Observable<number>;
+  activities$: Observable<Activity[]>;
+  categories$: Observable<Category[]>;
+  pageCount: number;
 
-  private pageRequest = new EntityPageRequest(0, 20, 'name', 'ASC');
-  private filterCriteriaList = [new FilterCriteria('name', FilterOperation.LIKE, 'ING')];
+  private pageRequest = new EntityPageRequest(0, 6, 'name', 'ASC');
+  private filterCriteriaList: FilterCriteria[] = [];
 
   constructor(private activityService: ActivityService, private categoryService: CategoryService) {}
 
@@ -34,14 +33,20 @@ export class ActivitiesComponent implements OnInit {
       .pipe(
         map(response => response.activities)
       );
-    this.count$ = this.activityService.page$(this.pageRequest, this.filterCriteriaList)
+    this.activityService.page$(this.pageRequest, this.filterCriteriaList)
       .pipe(
-        map(response => response.count)
-      );
+        map(response => Math.ceil(response.count / this.pageRequest.size))
+      )
+      .subscribe(pageCount => this.pageCount = pageCount);
   }
 
   onPageChange(page: number) {
     this.pageRequest.page = page - 1;
+    this.loadPage();
+  }
+
+  onFiltersChange(criteriaList: FilterCriteria[]) {
+    this.filterCriteriaList = criteriaList;
     this.loadPage();
   }
 }
