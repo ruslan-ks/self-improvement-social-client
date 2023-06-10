@@ -3,6 +3,7 @@ import { Activity } from "../../interface/activity";
 import { CategoryService } from "../../service/category.service";
 import { Observable } from "rxjs";
 import { Category } from "../../interface/category";
+import { ActivityType } from "../../enum/activity-type";
 
 @Component({
   selector: 'app-activity-card',
@@ -18,5 +19,13 @@ export class ActivityCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.categories$ = this.categoryService.getCategoriesById$(this.activity.categoryIds);
+  }
+
+  get activityType(): typeof ActivityType {
+    return ActivityType;
+  }
+
+  minutesToDays(minutes: number): number {
+    return minutes / (60 * 24);
   }
 }
