@@ -1,0 +1,8 @@
+<form class="row" [formGroup]="searchForm" (submit)="onSearchSubmit()">
+  <div class="col-md-10 col-sm-9 pe-sm-1">
+    <input formControlName="searchInput" class="form-control col-sm-9" type="search" placeholder="Search" aria-label="Search">
+  </div>
+  <div class="col ps-sm-0">
+    <button class="btn btn-primary w-100" type="submit">Search</button>
+  </div>
+</form>
