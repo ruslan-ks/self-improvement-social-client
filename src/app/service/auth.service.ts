@@ -7,6 +7,7 @@ import * as moment from "moment";
 import { Moment } from "moment";
 import { interval, Observable, Subject, Subscription } from "rxjs";
 import { UserLoginState } from "../enum/user-login-state";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -60,10 +61,10 @@ export class AuthService implements OnDestroy {
   }
 
   private setSession(authData: any): void {
-    const expiresAt = moment(authData.expiresAt);
-
     localStorage.setItem(this.idTokenName, authData.idToken);
-    localStorage.setItem(this.idTokenExpiresAtName, JSON.stringify(expiresAt.valueOf()));
+
+    // Save expiresAt UNIX epoch timestamp
+    localStorage.setItem(this.idTokenExpiresAtName, JSON.stringify(authData.expiresAt));
 
     this.emitLoginStateChange(UserLoginState.LOGGED_IN);
   }
@@ -84,6 +85,9 @@ export class AuthService implements OnDestroy {
   }
 
   private isExpired(expiration: Moment): boolean {
+    console.log('moment():', moment());
+    console.log('expiration:', expiration);
+    console.log('isSameOrAfter: ', moment().isSameOrAfter(expiration));
     return moment().isSameOrAfter(expiration);
   }
 
@@ -92,10 +96,29 @@ export class AuthService implements OnDestroy {
     if (!expiration) {
       return null;
     }
-    return moment(JSON.parse(expiration!));
+    console.log('expiresAt before parse:', expiration);
+    console.log('expiresAt:', JSON.parse(expiration));
+    return moment.unix(JSON.parse(expiration));
   }
 
   getIdToken(): string | null {
     return localStorage.getItem(this.idTokenName);
+  }
+
+  getLoggedUserId() {
+    if (this.isLoggedIn()) {
+      const decodedIdToken = this.decodeIdToken(this.getIdToken());
+      return decodedIdToken['userId'];
+    }
+    return null;
+  }
+
+  private decodeIdToken(idToken: string): JwtPayload {
+    try {
+      return jwtDecode<JwtPayload>(idToken);
+    } catch (error) {
+      console.log('Failed to decode id token: ', error);
+      return null;
+    }
   }
 }
