@@ -4,7 +4,9 @@
       <div class="ratio ratio-1x1 rounded-circle overflow-hidden">
         <img [src]="getAvatarUrl(user)" alt="avatar" class="img-cover">
       </div>
-      <button type="button" class="btn btn-primary col-12 mt-2">{{'user.follow' | translate}}</button>
+      <div *ngIf="showFollowButton">
+        <button type="button" class="btn btn-primary col-12 mt-2">{{'user.follow' | translate}}</button>
+      </div>
     </div>
     <div class="col">
       <div>

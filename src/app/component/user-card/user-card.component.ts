@@ -11,7 +11,6 @@ import { FilterCriteria } from "../../dto/request/fitler/filter-criteria";
 import { FilterOperator } from "../../dto/request/fitler/filter-operator";
 import { EntityPageRequest } from "../../dto/request/page/entity-page-request";
 import { map } from "rxjs/operators";
-import { AuthService } from "../../service/auth.service";
 
 @Component({
   selector: 'app-user-card',
@@ -20,6 +19,7 @@ import { AuthService } from "../../service/auth.service";
 })
 export class UserCardComponent {
   @Input({ required: true }) user: User | null = null;
+  @Input() showFollowButton: boolean = false;
 
   userActivities$: Observable<UserActivity[]>;
   userActivityCount$: Observable<number>;
@@ -30,8 +30,7 @@ export class UserCardComponent {
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
               private userActivityService: UserActivityService,
-              private activityService: ActivityService,
-              private authService: AuthService) {}
+              private activityService: ActivityService) {}
 
   ngOnInit(): void {
     this.userActivities$ = this.userActivityService.getPage$(this.user.id, PageRequest.getDefault());
