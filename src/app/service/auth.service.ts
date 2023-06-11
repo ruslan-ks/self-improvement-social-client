@@ -85,9 +85,6 @@ export class AuthService implements OnDestroy {
   }
 
   private isExpired(expiration: Moment): boolean {
-    console.log('moment():', moment());
-    console.log('expiration:', expiration);
-    console.log('isSameOrAfter: ', moment().isSameOrAfter(expiration));
     return moment().isSameOrAfter(expiration);
   }
 
@@ -96,8 +93,6 @@ export class AuthService implements OnDestroy {
     if (!expiration) {
       return null;
     }
-    console.log('expiresAt before parse:', expiration);
-    console.log('expiresAt:', JSON.parse(expiration));
     return moment.unix(JSON.parse(expiration));
   }
 
