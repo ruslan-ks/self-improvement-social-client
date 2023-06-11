@@ -1,10 +1,15 @@
 <div class="container-md">
   <div class="container" *ngIf="user$ | async as user">
-    <app-user-card [user]="user"></app-user-card>
+    <app-user-card [user]="user" [showFollowButton]="isNotLoggedUserId(user.id)"></app-user-card>
   </div>
   <br>
-  <div class="container">
-    <app-user-activity-statistics [userActivities]="userActivities$"></app-user-activity-statistics>
+  <div class="container" *ngIf="userActivities$ | async as userActivities">
+    <div *ngIf="userActivities.length < 1" class="alert alert-primary">
+      {{'user.noActivities' | translate}}
+    </div>
+    <div *ngIf="userActivities.length > 1">
+      <app-user-activity-statistics [userActivities]="userActivities"></app-user-activity-statistics>
+    </div>
   </div>
   <br>
 </div>

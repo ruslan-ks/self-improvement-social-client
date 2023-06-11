@@ -16,6 +16,7 @@
   "user.createdActivities": "Created activities",
   "user.followers": "Followers",
   "user.follows": "Follows",
+  "user.noActivities": "User has no activities",
   "activity.minutes": "minutes",
   "activity.participants": "Participants",
   "activity.categories": "Categories",
