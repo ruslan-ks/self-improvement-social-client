@@ -134,7 +134,7 @@ export class UserActivityStatisticsComponent implements OnInit {
         }
       }
     };
-    this.categoriesCompletionsChart = new Chart("activities-completions-count-bars", config);
+    this.categoriesCompletionsChart = new Chart("activities-page-completions-count-bars", config);
   }
 
   initCategoriesCompletionsCountPie(categoryCompletionCountMap: Map<string, number>) {

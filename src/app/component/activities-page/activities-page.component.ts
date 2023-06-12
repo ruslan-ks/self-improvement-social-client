@@ -9,11 +9,11 @@ import { Category } from "../../interface/category";
 import { CategoryService } from "../../service/category.service";
 
 @Component({
-  selector: 'app-activities',
-  templateUrl: './activities.component.html',
-  styleUrls: ['./activities.component.css']
+  selector: 'app-activities-page',
+  templateUrl: './activities-page.component.html',
+  styleUrls: ['./activities-page.component.css']
 })
-export class ActivitiesComponent implements OnInit {
+export class ActivitiesPageComponent implements OnInit {
   activities$: Observable<Activity[]>;
   categories$: Observable<Category[]>;
   pageCount: number;

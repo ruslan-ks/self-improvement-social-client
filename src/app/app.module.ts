@@ -21,7 +21,7 @@ import { GlobalHttpErrorHandler } from "./interceptor/global-http-error-handler.
 import { UserCardComponent } from './component/user-card/user-card.component';
 import { UsersComponent } from './component/users/users.component';
 import { PaginationComponent } from './component/pagination/pagination.component';
-import { ActivitiesComponent } from './component/activities/activities.component';
+import { ActivitiesPageComponent } from './component/activities-page/activities-page.component';
 import { ActivityCardComponent } from './component/activity-card/activity-card.component';
 import { ActivityFiltersComponent } from './component/activity-filters/activity-filters.component';
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
@@ -45,7 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserCardComponent,
     UsersComponent,
     PaginationComponent,
-    ActivitiesComponent,
+    ActivitiesPageComponent,
     ActivityCardComponent,
     ActivityFiltersComponent,
     UserProfileComponent,
