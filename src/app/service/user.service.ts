@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ResponseBody } from "../dto/response/response-body";
 import { Observable, throwError } from "rxjs";
-import { catchError, shareReplay, tap, map } from "rxjs/operators";
-import { PageRequest } from "../dto/request/page/page-request";
+import { catchError, shareReplay, map } from "rxjs/operators";
 import { AppSettings } from "../app-settings";
 import { User } from "../interface/user";
+import { EntityPageRequest } from "../dto/request/page/entity-page-request";
+import { FilterCriteria } from "../dto/request/fitler/filter-criteria";
+import { GetParamsBuilder } from "./get-params-builder.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,40 +15,19 @@ import { User } from "../interface/user";
 export class UserService {
   private readonly apiUrl: string = AppSettings.API_URL + 'users';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private getParamsBuilder: GetParamsBuilder) {}
 
-  page$ = (pr: PageRequest): Observable<User[]> => {
-    const sortParams = pr.sort
-      .map(value => 'sort=' + value)
-      .join('&');
-    const urlWithParams = `${this.apiUrl}?page=${pr.page}&size=${pr.size}&${sortParams}`;
+  // Return not only list of items, but also any data received in response.data map
+  page$ = (filterCriteriaList: FilterCriteria[], pageRequest: EntityPageRequest): Observable<Map<string, any>> => {
+    const params = this.getParamsBuilder.build(filterCriteriaList, pageRequest);
+    const urlWithParams = `${this.apiUrl}?${params}`;
     return this.http.get<ResponseBody>(urlWithParams)
       .pipe(
-        map(this.extractUsersArray),
+        map(response => response.data),
         catchError(this.handleError),
         shareReplay()
       );
-  }
-
-  private extractUsersArray(response: ResponseBody): User[] {
-    console.log('Obtained users:', (<any> response.data).users);
-    return (<any> response.data).users;
-  }
-
-  count$: Observable<number> = this.http.get<ResponseBody>(this.apiUrl + '/count')
-    .pipe(
-      map(this.extractCount),
-      tap(this.logCount),
-      catchError(this.handleError),
-      shareReplay()
-    );
-
-  private extractCount(response: ResponseBody): number {
-    return (<any> response.data).count;
-  }
-
-  private logCount(count: number): void {
-    console.log('Obtained users count:', count);
   }
 
   getById$ = (userId: number): Observable<User> => this.http.get<ResponseBody>(`${this.apiUrl}/${userId}`)
@@ -78,9 +59,5 @@ export class UserService {
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.log(`Error: ${error}`);
     return throwError(() => `An error occurred in UserService: ${error}`);
-  }
-
-  getAvatarUrl(userId: number): string {
-    return this.apiUrl + '/' + userId + '/avatar';
   }
 }
