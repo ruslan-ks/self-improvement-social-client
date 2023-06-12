@@ -28,6 +28,7 @@ import { UserProfileComponent } from './component/user-profile/user-profile.comp
 import { UserActivityStatisticsComponent } from './component/user-activity-statistics/user-activity-statistics.component';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
 import { ActivitiesComponent } from './component/activities/activities.component';
+import { UserActivitiesPageComponent } from './component/user-activities-page/user-activities-page.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -52,7 +53,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserProfileComponent,
     UserActivityStatisticsComponent,
     SearchBarComponent,
-    ActivitiesComponent
+    ActivitiesComponent,
+    UserActivitiesPageComponent
   ],
   imports: [
     BrowserModule,
