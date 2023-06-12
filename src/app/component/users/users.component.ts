@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "../../service/user.service";
-import { PageRequest } from "../../dto/request/page/page-request";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 import { User } from "../../interface/user";
+import { FilterCriteria } from "../../dto/request/fitler/filter-criteria";
+import { EntityPageRequest } from "../../dto/request/page/entity-page-request";
+import { FilterOperator } from "../../dto/request/fitler/filter-operator";
 
 @Component({
   selector: 'app-users',
@@ -11,24 +13,36 @@ import { User } from "../../interface/user";
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  private pageRequest: PageRequest = { page: 0, size: 2, sort: [] };
-
+  private pageRequest: EntityPageRequest = { page: 0, size: 10, sortBy: 'name', sortDirection: 'ASC' };
+  private filterCriteriaList: FilterCriteria[];
   users$: Observable<User[]> = new Observable<User[]>();
-  pageCount$: Observable<number> = new Observable<number>();
+  pageCount: number;
 
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.pageCount$ = this.userService.count$
+    this.loadPage();
+  }
+
+  loadPage() {
+    this.users$ = this.userService.page$(this.filterCriteriaList, this.pageRequest)
       .pipe(
-        map(count => Math.ceil(count / this.pageRequest.size))
+        tap(dataMap => this.pageCount = Math.ceil(dataMap['count'] / this.pageRequest.size)),
+        map(dataMap => dataMap['users'])
       );
-    this.users$ = this.userService.page$(this.pageRequest);
   }
 
   onPageChange(pageNumber: number) {
     this.pageRequest.page = pageNumber - 1;
-    console.log('UsersComponent: Page changed: ', pageNumber);
-    this.users$ = this.userService.page$(this.pageRequest);
+    this.loadPage();
+  }
+
+  handleSearchSubmit(searchQuery: string) {
+    if (searchQuery) {
+      this.filterCriteriaList = [new FilterCriteria('name', FilterOperator.LIKE, searchQuery)];
+    } else {
+      this.filterCriteriaList = [];
+    }
+    this.loadPage();
   }
 }
