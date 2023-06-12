@@ -16,7 +16,7 @@ export class UsersComponent implements OnInit {
   private pageRequest: EntityPageRequest = { page: 0, size: 10, sortBy: 'name', sortDirection: 'ASC' };
   private filterCriteriaList: FilterCriteria[];
   users$: Observable<User[]> = new Observable<User[]>();
-  pageCount: number;
+  pageCount: number = 1;
 
   constructor(private userService: UserService) {}
 
