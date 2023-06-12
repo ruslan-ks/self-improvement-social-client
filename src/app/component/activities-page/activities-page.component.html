@@ -4,11 +4,7 @@
       <app-activity-filters (onSearchClick)="onFiltersChange($event)"></app-activity-filters>
     </div>
     <div class="col">
-      <div class="row justify-content-start">
-        <div *ngFor="let activity of activities$ | async" class="col-lg-6 my-2 px-2">
-          <app-activity-card [activity]="activity" ></app-activity-card>
-        </div>
-      </div>
+      <app-activities [activities]="activities$ | async"></app-activities>
     </div>
   </div>
   <div class="container-fluid d-flex justify-content-center">
