@@ -7,7 +7,7 @@ import { UnknownErrorComponent } from "./component/page/errors/unknown-error/unk
 import { UsersComponent } from "./component/page/users/users.component";
 import { ActivitiesPageComponent } from "./component/page/activities-page/activities-page.component";
 import { UserProfileComponent } from "./component/page/user-profile/user-profile.component";
-import { UserActivitiesPageComponent } from "./component/page/user-activities-page/user-activities-page.component";
+import { UserActivitiesComponent } from "./component/page/user-activities/user-activities.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,7 +15,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginFormComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/:id', component: UserProfileComponent },
-  { path: 'users/:id/activities', component: UserActivitiesPageComponent },
+  { path: 'users/:id/activities', component: UserActivitiesComponent },
   { path: 'activities', component: ActivitiesPageComponent },
   { path: 'unknown-error', component: UnknownErrorComponent },
   { path: '**', component: Error404Component }

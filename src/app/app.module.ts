@@ -28,8 +28,8 @@ import { UserProfileComponent } from './component/page/user-profile/user-profile
 import { UserActivityStatisticsComponent } from './component/user-activity-statistics/user-activity-statistics.component';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
 import { ActivitiesComponent } from './component/activities/activities.component';
-import { UserActivitiesPageComponent } from './component/page/user-activities-page/user-activities-page.component';
-import { UserCreatedActivitiesComponent } from './component/user-created-activities/user-created-activities.component';
+import { UserActivitiesComponent } from './component/page/user-activities/user-activities.component';
+import { UserCreatedActivitiesComponent } from './component/page/user-created-activities/user-created-activities.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -55,7 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserActivityStatisticsComponent,
     SearchBarComponent,
     ActivitiesComponent,
-    UserActivitiesPageComponent,
+    UserActivitiesComponent,
     UserCreatedActivitiesComponent
   ],
   imports: [

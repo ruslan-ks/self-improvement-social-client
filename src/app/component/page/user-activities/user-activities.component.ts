@@ -9,11 +9,11 @@ import { UserService } from "../../../service/user.service";
 import { map } from "rxjs/operators";
 
 @Component({
-  selector: 'app-user-activities-page',
-  templateUrl: './user-activities-page.component.html',
-  styleUrls: ['./user-activities-page.component.css']
+  selector: 'app-user-activities',
+  templateUrl: './user-activities.component.html',
+  styleUrls: ['./user-activities.component.css']
 })
-export class UserActivitiesPageComponent implements OnInit {
+export class UserActivitiesComponent implements OnInit {
   pageRequest: PageRequest = { page: 0, size: 6, sort: []};
   userId: number;
   user$: Observable<User>;
