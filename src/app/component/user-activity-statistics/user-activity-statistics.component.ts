@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from "rxjs";
 import { UserActivity } from "../../interface/user-activity";
 import { Chart, ChartConfiguration, registerables } from "chart.js";
 import { CategoryService } from "../../service/category.service";
@@ -12,18 +11,22 @@ import { FunctionUtil } from "../../util/function-util";
 })
 export class UserActivityStatisticsComponent implements OnInit {
 
-  @Input({required: true}) userActivities!: Observable<UserActivity[]>;
+  @Input({required: true}) userActivities: UserActivity[];
 
-  categoriesCompletionsChart!: Chart;
+  categoriesCompletionsChart: Chart;
 
   constructor(private categoryService: CategoryService) {}
 
   ngOnInit() {
-    this.userActivities.subscribe(userActivities => {
-      userActivities.forEach(a => {
-        let startedAt = new Date(a.startedAt * 1000);
-        console.log(startedAt);
-      });
+    this.buildCharts(this.userActivities);
+  }
+
+  private buildCharts = (userActivities: UserActivity[]) => {
+    if (userActivities.length > 0) {
+      // userActivities.forEach(a => {
+      //   let startedAt = new Date(a.startedAt * 1000);
+      //   console.log(startedAt);
+      // });
 
       this.initActivitiesCompletionsBars(userActivities);
 
@@ -35,7 +38,7 @@ export class UserActivityStatisticsComponent implements OnInit {
 
       userActivities.forEach(ua => {
         ua.activity.categoryIds.forEach(id => {
-          categoryIdCompletionsCountMap.set(id, categoryIdCompletionsCountMap.get(id)! + ua.completions.length)
+          categoryIdCompletionsCountMap.set(id, categoryIdCompletionsCountMap.get(id) + ua.completions.length)
         });
       });
 
@@ -46,8 +49,8 @@ export class UserActivityStatisticsComponent implements OnInit {
           console.log('Category completions map: ', categoryNameCompletionsMap);
           this.initCategoriesCompletionsBars(categoryNameCompletionsMap);
           this.initCategoriesCompletionsCountPie(categoryNameCompletionsMap);
-        })
-    });
+        });
+    }
   }
 
   initCategoriesCompletionsBars(categoryCompletionCountMap: Map<string, number>) {

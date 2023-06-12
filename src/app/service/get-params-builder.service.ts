@@ -20,15 +20,22 @@ export class GetParamsBuilder {
   build(filters: FilterCriteria[], pageRequest: EntityPageRequest | undefined): string {
     let pageParams = '';
     if (typeof pageRequest !== undefined) {
-      pageParams = Object.entries(pageRequest!)
+      pageParams = Object.entries(pageRequest)
         .map(([k, v]) => v ? k + '=' + v : '')
         .join('&');
-      pageParams += '&';
     }
-    const filterQuery = 'query=' + filters
-      .map(f => f.field + ' ' + this.toCode(f.operation) + ' ' + f.value)
-      .join(';');
-    return pageParams + filterQuery;
+    if (filters) {
+      const filterQuery = filters.length > 0
+        ? 'query=' + filters
+          .map(f => f.field + ' ' + this.toCode(f.operation) + ' ' + f.value)
+          .join(';')
+        : '';
+      if (pageParams.length > 0) {
+        pageParams += '&';
+      }
+      pageParams += filterQuery;
+    }
+    return pageParams;
   }
 
   pageRequestBuild(pageRequest: PageRequest): string {

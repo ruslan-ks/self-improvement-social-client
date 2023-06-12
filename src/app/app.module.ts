@@ -26,6 +26,7 @@ import { ActivityCardComponent } from './component/activity-card/activity-card.c
 import { ActivityFiltersComponent } from './component/activity-filters/activity-filters.component';
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
 import { UserActivityStatisticsComponent } from './component/user-activity-statistics/user-activity-statistics.component';
+import { SearchBarComponent } from './component/search-bar/search-bar.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -48,7 +49,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ActivityCardComponent,
     ActivityFiltersComponent,
     UserProfileComponent,
-    UserActivityStatisticsComponent
+    UserActivityStatisticsComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,

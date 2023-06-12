@@ -1,15 +1,46 @@
-<div class="card mb-3">
-  <div class="row no-gutters">
-    <div class="col-md-3 col-sm-4 col-6">
-      <img [src]="toAvatarUrl(user)" class="img-fluid rounded-start user-card-img" alt="...">
+<div class="card">
+  <div class="row card-body">
+    <div class="col-lg-3 col-md-4 col-sm-6">
+      <div class="ratio ratio-1x1 rounded-circle overflow-hidden">
+        <img [src]="getAvatarUrl(user)" alt="avatar" class="img-cover">
+      </div>
+      <div *ngIf="showFollowButton">
+        <button type="button" class="btn btn-primary col-12 mt-2">{{'user.follow' | translate}}</button>
+      </div>
     </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">
-          <a class="link-dark" routerLink="/users/{{user?.id}}">{{user?.name}} {{user?.surname}}</a>
-        </h5>
-        <p class="card-text">Activities: {{user?.activityCount}}</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <div class="col">
+      <div>
+        <div class="row">
+          <h5 class="my-1">
+            <a routerLink="/users/{{user.id}}" class="link-dark">
+              {{user.name}}<span *ngIf="user.surname"> {{user.surname}}</span>
+            </a>
+          </h5>
+        </div>
+        <hr>
+        <div class="row">
+          <a href="#" class="card-link text-decoration-none">
+            {{'user.activities' | translate}}: {{userActivityCount$ | async}}
+          </a>
+        </div>
+        <hr>
+        <div class="row">
+          <a href="#" class="card-link text-decoration-none">
+            {{'user.createdActivities' | translate}}: {{createdActivitiesCount$ | async}}
+          </a>
+        </div>
+        <hr>
+        <div class="row">
+          <a href="#" class="card-link text-decoration-none">
+            {{'user.followers' | translate}}: {{followersCount$ | async}}
+          </a>
+        </div>
+        <hr>
+        <div class="row">
+          <a href="#" class="card-link text-decoration-none">
+            {{'user.follows' | translate }}: {{followingsCount$ | async}}
+          </a>
+        </div>
       </div>
     </div>
   </div>
