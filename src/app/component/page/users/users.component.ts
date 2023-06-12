@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from "../../service/user.service";
+import { UserService } from "../../../service/user.service";
 import { Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
-import { User } from "../../interface/user";
-import { FilterCriteria } from "../../dto/request/fitler/filter-criteria";
-import { EntityPageRequest } from "../../dto/request/page/entity-page-request";
-import { FilterOperator } from "../../dto/request/fitler/filter-operator";
+import { User } from "../../../interface/user";
+import { FilterCriteria } from "../../../dto/request/fitler/filter-criteria";
+import { EntityPageRequest } from "../../../dto/request/page/entity-page-request";
+import { FilterOperator } from "../../../dto/request/fitler/filter-operator";
 
 @Component({
   selector: 'app-users',

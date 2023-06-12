@@ -1,0 +1,13 @@
+<div class="container-lg">
+  <div class="row mb-3">
+    <div class="col-lg-3 col-md-4 my-2">
+      <app-activity-filters (onSearchClick)="onFiltersChange($event)"></app-activity-filters>
+    </div>
+    <div class="col">
+      <app-activities [activities]="activities$ | async"></app-activities>
+    </div>
+  </div>
+  <div class="container-fluid d-flex justify-content-center">
+    <app-pagination [pageCount]="pageCount" (pageChange)="onPageChange($event)"></app-pagination>
+  </div>
+</div>

@@ -1,17 +1,5 @@
-<div class="container-lg">
-  <div class="row mb-3">
-    <div class="col-lg-3 col-md-4 my-2">
-      <app-activity-filters (onSearchClick)="onFiltersChange($event)"></app-activity-filters>
-    </div>
-    <div class="col">
-      <div class="row justify-content-start">
-        <div *ngFor="let activity of activities$ | async" class="col-lg-6 my-2 px-2">
-          <app-activity-card [activity]="activity" ></app-activity-card>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container-fluid d-flex justify-content-center">
-    <app-pagination [pageCount]="pageCount" (pageChange)="onPageChange($event)"></app-pagination>
+<div class="row justify-content-start">
+  <div *ngFor="let activity of activities" class="col-lg-6 my-2 px-2">
+    <app-activity-card [activity]="activity" ></app-activity-card>
   </div>
 </div>

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { User } from "../../interface/user";
+import { User } from "../../../interface/user";
 import { Observable } from "rxjs";
-import { UserService } from "../../service/user.service";
-import { UserActivity } from "../../interface/user-activity";
-import { UserActivityService } from "../../service/user-activity.service";
-import { PageRequest } from "../../dto/request/page/page-request";
-import { AuthService } from "../../service/auth.service";
+import { UserService } from "../../../service/user.service";
+import { UserActivity } from "../../../interface/user-activity";
+import { UserActivityService } from "../../../service/user-activity.service";
+import { PageRequest } from "../../../dto/request/page/page-request";
+import { AuthService } from "../../../service/auth.service";
 
 @Component({
   selector: 'app-user-profile',
