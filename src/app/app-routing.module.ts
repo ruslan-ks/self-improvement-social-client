@@ -1,13 +1,13 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { HomeComponent } from "./component/home/home.component";
-import { LoginFormComponent } from "./component/login-form/login-form.component";
-import { Error404Component } from "./component/errors/error404/error404.component";
-import { UnknownErrorComponent } from "./component/errors/unknown-error/unknown-error.component";
-import { UsersComponent } from "./component/users/users.component";
-import { ActivitiesPageComponent } from "./component/activities-page/activities-page.component";
-import { UserProfileComponent } from "./component/user-profile/user-profile.component";
-import { UserActivitiesPageComponent } from "./component/user-activities-page/user-activities-page.component";
+import { HomeComponent } from "./component/page/home/home.component";
+import { LoginFormComponent } from "./component/page/login-form/login-form.component";
+import { Error404Component } from "./component/page/errors/error404/error404.component";
+import { UnknownErrorComponent } from "./component/page/errors/unknown-error/unknown-error.component";
+import { UsersComponent } from "./component/page/users/users.component";
+import { ActivitiesPageComponent } from "./component/page/activities-page/activities-page.component";
+import { UserProfileComponent } from "./component/page/user-profile/user-profile.component";
+import { UserActivitiesPageComponent } from "./component/page/user-activities-page/user-activities-page.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

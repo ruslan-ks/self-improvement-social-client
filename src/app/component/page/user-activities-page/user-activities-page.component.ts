@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { UserActivityService } from "../../service/user-activity.service";
+import { UserActivityService } from "../../../service/user-activity.service";
 import { Observable } from "rxjs";
-import { Activity } from "../../interface/activity";
-import { PageRequest } from "../../dto/request/page/page-request";
-import { User } from "../../interface/user";
-import { UserService } from "../../service/user.service";
+import { Activity } from "../../../interface/activity";
+import { PageRequest } from "../../../dto/request/page/page-request";
+import { User } from "../../../interface/user";
+import { UserService } from "../../../service/user.service";
 import { map } from "rxjs/operators";
 
 @Component({
