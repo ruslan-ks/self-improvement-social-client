@@ -6,5 +6,8 @@
   <div class="container">
     <app-activities [activities]="activities$ | async"></app-activities>
   </div>
+  <div class="container-fluid d-flex justify-content-center">
+    <app-pagination [pageCount]="pageCount" (pageChange)="handlePageChange($event)"></app-pagination>
+  </div>
   <br>
 </div>

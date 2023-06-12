@@ -14,11 +14,11 @@ import { map } from "rxjs/operators";
   styleUrls: ['./user-activities.component.css']
 })
 export class UserActivitiesComponent implements OnInit {
-  pageRequest: PageRequest = { page: 0, size: 6, sort: []};
+  pageRequest: PageRequest = { page: 0, size: 2, sort: []};
   userId: number;
   user$: Observable<User>;
   activities$: Observable<Activity[]>;
-  count: number;
+  pageCount: number;
 
   constructor(private activatedRoute: ActivatedRoute,
               private userActivityService: UserActivityService,
@@ -30,7 +30,7 @@ export class UserActivitiesComponent implements OnInit {
 
     // There are no filters, thus no need to request count more than once
     this.userActivityService.count$(this.userId)
-      .subscribe(count => this.count = count);
+      .subscribe(count => this.pageCount = Math.ceil(count / this.pageRequest.size));
   }
 
   loadPage() {
