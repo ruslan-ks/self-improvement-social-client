@@ -14,7 +14,7 @@ import { map } from "rxjs/operators";
   styleUrls: ['./user-activities.component.css']
 })
 export class UserActivitiesComponent implements OnInit {
-  pageRequest: PageRequest = { page: 0, size: 2, sort: []};
+  pageRequest: PageRequest = { page: 0, size: 6, sort: []};
   userId: number;
   user$: Observable<User>;
   activities$: Observable<Activity[]>;
