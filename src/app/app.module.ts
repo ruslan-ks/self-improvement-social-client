@@ -30,6 +30,8 @@ import { SearchBarComponent } from './component/search-bar/search-bar.component'
 import { ActivitiesComponent } from './component/activities/activities.component';
 import { UserActivitiesComponent } from './component/page/user-activities/user-activities.component';
 import { UserCreatedActivitiesComponent } from './component/page/user-created-activities/user-created-activities.component';
+import { UserFollowersComponent } from './component/page/user-followers/user-followers.component';
+import { UserListComponent } from './component/user-list/user-list.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -56,7 +58,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     SearchBarComponent,
     ActivitiesComponent,
     UserActivitiesComponent,
-    UserCreatedActivitiesComponent
+    UserCreatedActivitiesComponent,
+    UserFollowersComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

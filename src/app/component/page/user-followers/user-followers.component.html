@@ -1,0 +1,13 @@
+<div class="container-md">
+  <div class="container">
+    <app-user-card *ngIf="user$ | async as user" [user]="user"></app-user-card>
+  </div>
+  <h5 class="mx-3 mt-3 mb-2">{{'user.followers' | translate}}</h5>
+  <div class="container">
+    <app-user-list [users]="followers$ | async"></app-user-list>
+  </div>
+  <div class="container-fluid d-flex justify-content-center">
+    <app-pagination [pageCount]="pageCount" (pageChange)="handlePageChange($event)"></app-pagination>
+  </div>
+  <br>
+</div>
