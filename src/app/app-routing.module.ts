@@ -8,6 +8,9 @@ import { UsersComponent } from "./component/page/users/users.component";
 import { ActivitiesPageComponent } from "./component/page/activities-page/activities-page.component";
 import { UserProfileComponent } from "./component/page/user-profile/user-profile.component";
 import { UserActivitiesComponent } from "./component/page/user-activities/user-activities.component";
+import {
+  UserCreatedActivitiesComponent
+} from "./component/page/user-created-activities/user-created-activities.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,6 +19,7 @@ const appRoutes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'users/:id', component: UserProfileComponent },
   { path: 'users/:id/activities', component: UserActivitiesComponent },
+  { path: 'users/:id/created-activities', component: UserCreatedActivitiesComponent },
   { path: 'activities', component: ActivitiesPageComponent },
   { path: 'unknown-error', component: UnknownErrorComponent },
   { path: '**', component: Error404Component }

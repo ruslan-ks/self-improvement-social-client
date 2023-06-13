@@ -2,7 +2,7 @@
   <div class="container">
     <app-user-card *ngIf="user$ | async as user" [user]="user"></app-user-card>
   </div>
-  <h5 class="mx-3 mt-3 mb-2">{{'user.activities' | translate}}</h5>
+  <h5 class="mx-3 mt-3 mb-2">{{'user.createdActivities' | translate}}</h5>
   <div class="container">
     <app-activities [activities]="activities$ | async"></app-activities>
   </div>
