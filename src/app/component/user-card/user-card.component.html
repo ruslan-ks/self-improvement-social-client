@@ -25,7 +25,7 @@
         </div>
         <hr>
         <div class="row">
-          <a href="#" class="card-link text-decoration-none">
+          <a routerLink="/users/{{user.id}}/created-activities" class="card-link text-decoration-none">
             {{'user.createdActivities' | translate}}: {{createdActivitiesCount$ | async}}
           </a>
         </div>
