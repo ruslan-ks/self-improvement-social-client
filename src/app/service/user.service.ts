@@ -8,6 +8,7 @@ import { User } from "../interface/user";
 import { EntityPageRequest } from "../dto/request/page/entity-page-request";
 import { FilterCriteria } from "../dto/request/fitler/filter-criteria";
 import { GetParamsBuilder } from "./get-params-builder.service";
+import { PageRequest } from "../dto/request/page/page-request";
 
 @Injectable({
   providedIn: 'root'
@@ -32,21 +33,30 @@ export class UserService {
 
   getById$ = (userId: number): Observable<User> => this.http.get<ResponseBody>(`${this.apiUrl}/${userId}`)
     .pipe(
-      map(response => (<any> response.data).user),
+      map(response => response.data['user']),
       shareReplay()
     );
 
-  followersCount = (userId: number): Observable<number> =>
+  followersCount$ = (userId: number): Observable<number> =>
     this.http.get<ResponseBody>(`${this.apiUrl}/${userId}/followers/count`)
       .pipe(
-        map(response => (<any> response.data).followersCount),
+        map(response => response.data['followersCount']),
         shareReplay()
       );
 
-  followingsCount = (userId: number): Observable<number> =>
+  followersPage$ = (userId: number, pageRequest: PageRequest): Observable<User[]> => {
+    const params = this.getParamsBuilder.pageRequestBuild(pageRequest);
+    return this.http.get<ResponseBody>(`${this.apiUrl}/${userId}/followers?${params}`)
+      .pipe(
+        map(response => response.data['followers']),
+        shareReplay()
+      );
+  }
+
+  followingsCount$ = (userId: number): Observable<number> =>
     this.http.get<ResponseBody>(`${this.apiUrl}/${userId}/followings/count`)
       .pipe(
-        map(response => (<any> response.data).followingsCount),
+        map(response => response.data['followingsCount']),
         shareReplay()
       );
 

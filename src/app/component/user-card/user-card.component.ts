@@ -42,8 +42,8 @@ export class UserCardComponent {
         map(dataMap => dataMap.count)
       );
 
-    this.followersCount$ = this.userService.followersCount(this.user.id);
-    this.followingsCount$ = this.userService.followingsCount(this.user.id);
+    this.followersCount$ = this.userService.followersCount$(this.user.id);
+    this.followingsCount$ = this.userService.followingsCount$(this.user.id);
   }
 
   getAvatarUrl(user: User | null): string {

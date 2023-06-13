@@ -1,11 +1,9 @@
 <section class="container-fluid">
-  <div *ngIf="users$ | async as users" class="col-md-10 col-lg-8 mx-auto">
+  <div class="col-md-10 col-lg-8 mx-auto">
     <div class="mb-3">
       <app-search-bar (searchSubmitted)="handleSearchSubmit($event)"></app-search-bar>
     </div>
-    <div *ngFor="let user of users" class="my-3">
-      <app-user-card [user]="user"></app-user-card>
-    </div>
+    <app-user-list [users]="users$ | async"></app-user-list>
   </div>
   <div class="container-fluid d-flex justify-content-center">
     <app-pagination [maxButtonCount]="5" [pageCount]="pageCount" (pageChange)="onPageChange($event)"></app-pagination>
