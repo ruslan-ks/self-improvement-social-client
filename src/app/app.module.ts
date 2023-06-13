@@ -32,6 +32,7 @@ import { UserActivitiesComponent } from './component/page/user-activities/user-a
 import { UserCreatedActivitiesComponent } from './component/page/user-created-activities/user-created-activities.component';
 import { UserFollowersComponent } from './component/page/user-followers/user-followers.component';
 import { UserListComponent } from './component/user-list/user-list.component';
+import { UserFollowingsComponent } from './component/page/user-followings/user-followings.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -60,7 +61,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserActivitiesComponent,
     UserCreatedActivitiesComponent,
     UserFollowersComponent,
-    UserListComponent
+    UserListComponent,
+    UserFollowingsComponent
   ],
   imports: [
     BrowserModule,

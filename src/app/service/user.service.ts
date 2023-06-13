@@ -60,6 +60,15 @@ export class UserService {
         shareReplay()
       );
 
+  followingsPage$ = (userId: number, pageRequest: PageRequest): Observable<User[]> => {
+    const params = this.getParamsBuilder.pageRequestBuild(pageRequest);
+    return this.http.get<ResponseBody>(`${this.apiUrl}/${userId}/followings?${params}`)
+      .pipe(
+        map(response => response.data['followings']),
+        shareReplay()
+      );
+  }
+
   // save$ = (user: User) => <Observable<ResponseBody>>this.http.post(this.apiUrl, user)
   //   .pipe(
   //     tap(console.log),
