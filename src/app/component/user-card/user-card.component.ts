@@ -11,6 +11,7 @@ import { FilterCriteria } from "../../dto/request/fitler/filter-criteria";
 import { FilterOperator } from "../../dto/request/fitler/filter-operator";
 import { EntityPageRequest } from "../../dto/request/page/entity-page-request";
 import { map } from "rxjs/operators";
+import { AuthService } from "../../service/auth.service";
 
 @Component({
   selector: 'app-user-card',
@@ -19,7 +20,6 @@ import { map } from "rxjs/operators";
 })
 export class UserCardComponent {
   @Input({ required: true }) user: User | null = null;
-  @Input() showFollowButton: boolean = false;
 
   userActivities$: Observable<UserActivity[]>;
   userActivityCount$: Observable<number>;
@@ -27,10 +27,14 @@ export class UserCardComponent {
   followersCount$: Observable<number>;
   followingsCount$: Observable<number>;
 
+  isFollowedByLoggedUser: boolean;
+  loggedUserId: number;
+
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
               private userActivityService: UserActivityService,
-              private activityService: ActivityService) {}
+              private activityService: ActivityService,
+              private authService: AuthService) {}
 
   ngOnInit(): void {
     this.userActivities$ = this.userActivityService.getPage$(this.user.id, PageRequest.getDefault());
@@ -44,9 +48,24 @@ export class UserCardComponent {
 
     this.followersCount$ = this.userService.followersCount$(this.user.id);
     this.followingsCount$ = this.userService.followingsCount$(this.user.id);
+
+    this.loggedUserId = this.authService.getLoggedUserId();
+    if (this.loggedUserId && !this.isLoggedUser()) {
+      console.log('Subscribing to followingIds$');
+      this.userService.followingIds$(this.loggedUserId)
+        .subscribe(followingIds => this.isFollowedByLoggedUser = followingIds.includes(this.user.id));
+    }
   }
 
   getAvatarUrl(user: User | null): string {
     return `http://localhost:8080/users/${user?.id}/avatar`;
+  }
+
+  isLoggedUser() {
+    return this.loggedUserId && this.loggedUserId === this.user.id;
+  }
+
+  showFollowButton() {
+    return !this.isLoggedUser() && !this.isFollowedByLoggedUser;
   }
 }

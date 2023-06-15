@@ -14,22 +14,17 @@ import { AuthService } from "../../../service/auth.service";
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+  userId: number;
   user$: Observable<User>;
   userActivities$: Observable<UserActivity[]>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
-              private userActivityService: UserActivityService,
-              private authService: AuthService) {}
+              private userActivityService: UserActivityService) {}
 
   ngOnInit(): void {
-    const userId: number = +this.activatedRoute.snapshot.paramMap.get('id')!;
-    this.user$ = this.userService.getById$(userId);
-    this.userActivities$ = this.userActivityService.getPage$(userId, PageRequest.getDefault());
-  }
-
-  isNotLoggedUserId(userId: number) {
-    const loggedUserId = this.authService.getLoggedUserId();
-    return !(loggedUserId && loggedUserId === userId);
+    this.userId = +this.activatedRoute.snapshot.paramMap.get('id');
+    this.user$ = this.userService.getById$(this.userId);
+    this.userActivities$ = this.userActivityService.getPage$(this.userId, PageRequest.getDefault());
   }
 }
