@@ -98,6 +98,18 @@ export class UserService implements OnInit {
       );
   }
 
+  // Add currently logged user to user(with followingId) followers
+  addFollowing$ = (followingId: number) => this.http.post(`${this.apiUrl}/${followingId}/followers`, {})
+    .pipe(
+      shareReplay()
+    );
+
+  // Delete currently logged user from user(with followingId) followers
+  deleteFollowing$ = (followingId: number) => this.http.delete(`${this.apiUrl}/${followingId}/followers`, {})
+    .pipe(
+      shareReplay()
+    );
+
   // save$ = (user: User) => <Observable<ResponseBody>>this.http.post(this.apiUrl, user)
   //   .pipe(
   //     tap(console.log),

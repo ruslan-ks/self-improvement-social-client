@@ -25,7 +25,7 @@ export class UserCardComponent {
   userActivityCount$: Observable<number>;
   createdActivitiesCount$: Observable<number>;
   followersCount$: Observable<number>;
-  followingsCount$: Observable<number>;
+  followingsCount: number;
 
   isFollowedByLoggedUser: boolean;
   loggedUserId: number;
@@ -47,9 +47,19 @@ export class UserCardComponent {
       );
 
     this.followersCount$ = this.userService.followersCount$(this.user.id);
-    this.followingsCount$ = this.userService.followingsCount$(this.user.id);
+    this.loadFollowingsCount();
 
     this.loggedUserId = this.authService.getLoggedUserId();
+    this.loadFollowingIds();
+  }
+
+  private loadFollowingsCount() {
+    this.userService.followingsCount$(this.user.id)
+      .subscribe(count => this.followingsCount = count);
+  }
+
+  // Requires this.loggedUserId initialization before calling
+  private loadFollowingIds() {
     if (this.loggedUserId && !this.isLoggedUser()) {
       console.log('Subscribing to followingIds$');
       this.userService.followingIds$(this.loggedUserId)
@@ -65,7 +75,17 @@ export class UserCardComponent {
     return this.loggedUserId && this.loggedUserId === this.user.id;
   }
 
-  showFollowButton() {
-    return !this.isLoggedUser() && !this.isFollowedByLoggedUser;
+  handleFollowClick() {
+    this.userService.addFollowing$(this.user.id)
+      .subscribe(() => {
+        this.isFollowedByLoggedUser = true;
+      });
+  }
+
+  handleUnfollowClick() {
+    this.userService.deleteFollowing$(this.user.id)
+      .subscribe(() => {
+        this.isFollowedByLoggedUser = false;
+      });
   }
 }

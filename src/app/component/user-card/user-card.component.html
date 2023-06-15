@@ -4,8 +4,15 @@
       <div class="ratio ratio-1x1 rounded-circle overflow-hidden">
         <img [src]="getAvatarUrl(user)" alt="avatar" class="img-cover">
       </div>
-      <div *ngIf="showFollowButton()">
-        <button type="button" class="btn btn-primary col-12 mt-2">{{'user.follow' | translate}}</button>
+      <div *ngIf="!isLoggedUser() && !isFollowedByLoggedUser">
+        <button type="button" class="btn btn-primary col-12 mt-2" (click)="handleFollowClick()">
+          {{'user.follow' | translate}}
+        </button>
+      </div>
+      <div *ngIf="!isLoggedUser() && isFollowedByLoggedUser">
+        <button type="button" class="btn btn-danger col-12 mt-2" (click)="handleUnfollowClick()">
+          {{'user.unfollow' | translate}}
+        </button>
       </div>
     </div>
     <div class="col">
@@ -38,7 +45,7 @@
         <hr>
         <div class="row">
           <a routerLink="/users/{{user.id}}/followings" class="card-link text-decoration-none">
-            {{'user.follows' | translate }}: {{followingsCount$ | async}}
+            {{'user.follows' | translate }}: {{followingsCount}}
           </a>
         </div>
       </div>
